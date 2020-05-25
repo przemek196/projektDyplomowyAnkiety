@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "734306321746",
+    "firebase_url": "https://projektdyplomowyankiety.firebaseio.com",
+    "project_id": "projektdyplomowyankiety",
+    "storage_bucket": "projektdyplomowyankiety.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:734306321746:android:95042b1cbd29bd8b26268b",
+        "android_client_info": {
+          "package_name": "com.example.projektdyplomowyankiety"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "734306321746-kenst51ceq0sbekumrqnc4b80ir7hv1m.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.projektdyplomowyankiety",
+            "certificate_hash": "93b1e58ee0a49967892bb9d43cbe10d912c501da"
+          }
+        },
+        {
+          "client_id": "734306321746-08heubv8tub8eep64ecpce7abadkj3pm.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEN6YCd7wQxi34KacVP11LFZ1nIVKM9v8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "734306321746-08heubv8tub8eep64ecpce7abadkj3pm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:scrollbars="vertical">
+
+
+    <com.applandeo.materialcalendarview.CalendarView
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:headerColor="@color/daysLabelColor"/>
+
+
+    <LinearLayout
+        android:id="@+id/linLayAnim"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:id="@+id/LinearLayout02"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true">
+
+            <Button
+                android:id="@+id/backBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="#226C25"
+                android:drawableRight="@drawable/ic_arrow_up_size"
+                android:paddingLeft="100dip"
+                android:paddingRight="100dp"
+                android:singleLine="true"
+                android:text="Wroć"
+                android:textColor="#ffffff"
+                android:textSize="12sp"></Button>
+
+
+
+
+            <Button
+                android:id="@+id/btnClearDaySurveys"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:background="#8A0F39"
+                android:drawableLeft="@drawable/ic_delete_size"
+               android:paddingLeft="23dp"
+                android:textColor="#ffffff"
+                android:textSize="12sp"></Button>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"></TextView>
+
+        <ScrollView
+            android:id="@+id/sc1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/linlayCal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"></LinearLayout>
+
+        </ScrollView>
+
+
+    </LinearLayout>
+
+
+    <!--
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/calendar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:mcv_selectionColor="#00F"
+        app:mcv_showOtherDates="all" />
+
+    <TextView
+        android:id="@+id/showUnderDate"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:autoLink="web"
+        android:gravity="bottom|center"
+        android:text="ViralAndroid.com"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+-->
+</LinearLayout>

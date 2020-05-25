@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn='navigation_view'>
+
+
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_calendar"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/strMainPage"></item>
+
+        <item android:id="@+id/nav_create_survey"
+            android:icon="@drawable/ic_calendar"
+            android:title="@string/strCreateSurvey"></item>
+        <item android:id="@+id/nav_fiil_survey"
+            android:icon="@drawable/ic_calendar"
+            android:title="@string/strCompleteSurvey"></item>
+
+        <item android:title="">
+<menu>
+    <item android:id="@+id/nav_settings"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/strSettings"></item>
+    <item android:id="@+id/nav_logout"
+        android:icon="@drawable/ic_calendar"
+        android:title="@string/strLogout"></item>
+</menu>
+
+        </item>
+    </group>
+
+</menu>

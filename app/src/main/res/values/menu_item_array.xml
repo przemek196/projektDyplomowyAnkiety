@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="strMenuItems">
+        <item>Kalendarz ankiet</item>
+        <item>Stwórz ankietę</item>
+        <item>Wypełnij ankietę</item>
+        <item>Wygeneruj do CSV</item>
+
+    </string-array>
+
+    <array name="drawer_icons">
+        <item>@drawable/calendar</item>
+        <item>@drawable/add</item>
+        <item>@drawable/complete</item>
+        <item>@drawable/csv_icon</item>
+    </array>
+
+
+</resources>

@@ -1,0 +1,34 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".MainMenu">
+
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar" />
+
+    <androidx.drawerlayout.widget.DrawerLayout
+        android:id="@+id/drawer_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- The main content view -->
+        <FrameLayout
+            android:id="@+id/frame_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <!-- Slide menu-->
+        <ListView
+            android:id="@+id/lv_drawer_menu"
+            android:layout_width="240dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:background="#fff"
+            android:choiceMode="singleChoice"
+            android:divider="@null"
+            android:dividerHeight="10dp" />
+    </androidx.drawerlayout.widget.DrawerLayout>
+</LinearLayout>

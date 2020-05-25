@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+   android:layout_marginTop="10dp"
+    android:orientation="vertical"
+    tools:context=".AddQuestion">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/giveQuestLay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edTextGiveQuest"
+            android:layout_width="329dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:hint="@string/strPodajPytanie"
+            android:inputType="textEmailAddress" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroupTypeQuest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/giveQuestLay"
+        android:layout_margin="13dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb1"
+          android:checked="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strJZW"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/rb2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strKZW"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/rb3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strO"></RadioButton>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnAddField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/radioGroupTypeQuest"
+        android:layout_marginLeft="15dp"
+        android:background="#992fca"
+        android:drawableLeft="@drawable/icon_add_size"
+        android:drawablePadding="10dip"
+        android:padding="16dp"
+        android:paddingLeft="30dip"
+        android:paddingRight="26dip"
+        android:singleLine="true"
+        android:text="@string/strAddAnser"
+        android:textColor="#ffffff"
+        android:textSize="12sp" />
+
+    <ScrollView
+        android:id="@+id/scrollViewFields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layA"
+        android:layout_below="@id/btnAddField">
+
+        <LinearLayout
+            android:id="@+id/linLayFields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layA"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center|bottom"
+        android:orientation="vertical">
+
+
+        <Button
+            android:id="@+id/btnConfirmQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#992fca"
+            android:drawableRight="@drawable/icon_create_survey_size"
+            android:paddingLeft="100dip"
+            android:paddingRight="100dp"
+            android:singleLine="true"
+            android:text="@string/addQuestion"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</RelativeLayout><!--
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".AddQuestion">
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/emailWrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/edTextGiveQuest"
+            android:layout_width="329dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:hint="@string/strPodajPytanie"
+            android:inputType="textEmailAddress"
+            android:textColor="@color/colTextEdit" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <RadioGroup
+        android:id="@+id/radioGroupTypeQuest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/rb1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strJZW"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/rb2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strKZW"></RadioButton>
+
+        <RadioButton
+            android:id="@+id/rb3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/strO"></RadioButton>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/btnAddField"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="+"
+        android:textSize="25dp"></Button>
+
+    <ScrollView
+        android:id="@+id/scrollViewFields"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/linLayFields"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"></LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center|bottom"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btnConfirmQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#992fca"
+            android:drawableRight="@drawable/icon_create_survey_size"
+            android:paddingLeft="100dip"
+            android:paddingRight="100dp"
+            android:singleLine="true"
+            android:text="@string/strAddQuestion"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+</LinearLayout>
+
+-->

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardViewShowQuestion"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   app:cardBackgroundColor="@color/colorAccent"
+    app:cardCornerRadius="7dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvNumberOfQuestion"
+               android:layout_marginLeft="5dp"
+                android:layout_width="15dp"
+                android:layout_height="wrap_content"
+                android:text="1."
+                android:textSize="15dp"></TextView>
+
+            <TextView
+                android:id="@+id/tvNameOfQuestion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Czy lubisz jeść?"
+                android:textSize="15dp"></TextView>
+        </LinearLayout>
+
+        <TextView
+           android:id="@+id/typeOfQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="Jedna z wielu"
+            android:textSize="10dp"></TextView>
+
+
+        <LinearLayout
+            android:id="@+id/layAnswers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:orientation="vertical">
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
