@@ -46,4 +46,6 @@
     <string name="strSurvCreated">Ankieta została utworzona</string>
     <string name="strDeletSurvey1">Po usunięciu nie będzie dostępna do wypełniania, lecz wypełnione ankiety pozostaną bez zmian. Czy na pewno chcesz usunąć?</string>
     <string name="strDo">Wykonaj</string>
+    <string name="strEditQuestion">Edytuj pytanie</string>
+    <string name="quesUpdated">Pytanie zaktualizowane</string>
 </resources>

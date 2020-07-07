@@ -3,9 +3,9 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">#986868</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">#683DB3</item>
+        <item name="colorPrimaryDark">#3275AA</item>
+        <item name="colorAccent">#2369A1</item>
     </style>
 
     <style name="app_noActionBar" parent="Theme.AppCompat.Light.NoActionBar">
@@ -16,6 +16,19 @@
     <style name="toolbarColor" parent="AppTheme">
         <item name="android:textColorSecondary">#ffffff</item>
     </style>
+
+
+
+
+
+    <style name="EditTextHint" parent="TextAppearance.AppCompat">
+        <item name="colorAccent">@android:color/white</item>
+        <item name="android:textColorHint">@color/BackgroundtWhiteColor</item>
+        <item name="colorControlNormal">@color/BackgroundtWhiteColor</item>
+        <item name="colorControlActivated">@color/colorEditText</item>
+        <item name="colorControlHighlight">@color/BackgroundtWhiteColor</item>
+    </style>
+
 
 
 </resources>

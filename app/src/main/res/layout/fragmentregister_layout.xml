@@ -1,82 +1,207 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/login_background"
-    android:orientation="vertical"
     tools:context=".EntryActivity">
 
 
     <LinearLayout
-        android:id="@+id/entLin2"
+        android:layout_marginTop="30dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_above="@id/lin_all"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:typeface="serif"
+            android:text="ANKIETY"
+            android:textSize="35dp"
+            android:gravity="center_vertical"
+            android:textColor="#ffffff"
+            ></TextView>
+
+        <ImageView
+            android:id="@+id/imvLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_logo1"
+            ></ImageView>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/lin_all"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:orientation="vertical">
 
 
         <LinearLayout
+            android:id="@+id/lay1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             android:orientation="vertical">
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/emailWrapper"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+               >
 
                 <EditText
                     android:id="@+id/edTextEmail"
+                    android:theme="@style/EditTextHint"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colTextEdit"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:hint="@string/emailStr"
-                    android:inputType="textEmailAddress" />
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/colTextEdit" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/passwordWrapper"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp">
 
                 <EditText
                     android:id="@+id/edTextPassword"
                     android:layout_width="match_parent"
+                    android:theme="@style/EditTextHint"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/colTextEdit"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
                     android:hint="@string/passwordStr"
-                    android:inputType="textPassword" />
+                    android:inputType="textPassword"
+                    android:textColor="@color/colTextEdit" />
             </com.google.android.material.textfield.TextInputLayout>
-
-
         </LinearLayout>
 
         <Button
             android:id="@+id/btnRegister"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/button_background"
-            android:textColor="#ffffff"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
-            android:text="@string/registerStr"></Button>
+            android:background="@drawable/button_background"
+            android:paddingLeft="30dp"
+            android:paddingRight="30dp"
+            android:text="@string/registerStr"
+            android:textColor="#ffffff"></Button>
 
-        <Button
-            android:id="@+id/btnQuestLogIn"
+        <TextView
+            android:id="@+id/tvQuestLogIn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffffff"
-            android:background="@drawable/button_background"
-            android:layout_gravity="center|bottom"
-            android:layout_marginTop="30dp"
-            android:text="@string/loginQuestionStr"></Button>
+            android:layout_gravity="center"
+            android:layout_marginTop="25dp"
+            android:text="@string/loginQuestionStr"
+            android:textColor="#ffffff"></TextView>
 
 
     </LinearLayout>
-</LinearLayout>
+
+</RelativeLayout>
+
+
+    <!--
+    <?xml version="1.0" encoding="utf-8"?>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/login_background"
+        android:orientation="vertical"
+        tools:context=".EntryActivity">
+
+
+        <LinearLayout
+            android:id="@+id/entLin2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="200dp"
+                android:orientation="vertical">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/emailWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edTextEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:hint="@string/emailStr"
+                        android:inputType="textEmailAddress"
+                        android:textColor="@color/colTextEdit" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/passwordWrapper"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/edTextPassword"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:hint="@string/passwordStr"
+                        android:inputType="textPassword"
+                        android:textColor="@color/colTextEdit" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/btnRegister"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/button_background"
+                android:text="@string/registerStr"
+                android:textColor="#ffffff"></Button>
+
+            <Button
+                android:id="@+id/btnQuestLogIn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center|bottom"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/button_background"
+                android:text="@string/loginQuestionStr"
+                android:textColor="#ffffff"></Button>
+
+
+        </LinearLayout>
+    </LinearLayout>
+
+    -->

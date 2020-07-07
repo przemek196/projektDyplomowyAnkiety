@@ -1,9 +1,12 @@
 package com.example.projektdyplomowyankiety;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -43,6 +46,22 @@ public class CompleteSurveyFragment extends Fragment implements IOnBackPressed {
     private int count = 0;
     private String a;
     private static final String TAG = "Complete Survey Frag";
+    RecyclerViewAdapter recyclerViewAdapter;
+
+
+    private int LAUNCH_SECOND_ACTIVITY = 1;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == LAUNCH_SECOND_ACTIVITY) {
+            if (resultCode == Activity.RESULT_OK) {
+                Toast.makeText(getContext(), "asdasd", Toast.LENGTH_SHORT).show();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+            }
+        }
+    }//onActivityResult
 
 
     @Nullable
@@ -74,7 +93,7 @@ public class CompleteSurveyFragment extends Fragment implements IOnBackPressed {
         DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecor);
 
-        RecyclerViewAdapter recyclerViewAdapter = new RecyclerViewAdapter(getContext(), surNames, quesSurCount);//tutaj dac liste
+        recyclerViewAdapter = new RecyclerViewAdapter(getContext(), surNames, quesSurCount);//tutaj dac liste
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

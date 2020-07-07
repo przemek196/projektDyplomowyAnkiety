@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/choQ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:text="Edytuj Pytanie"></TextView>
+
+    <ListView
+        android:id="@+id/edSurvListView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_below="@id/choQ"></ListView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/edSurvListView"
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imVieBackDialog"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="15dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+
+            android:layout_below="@+id/sccards"
+            android:src="@drawable/btn_back"></androidx.appcompat.widget.AppCompatImageView>
+
+
+        <Button
+            android:id="@+id/edSurvAddQues"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="10dp"
+            android:background="#992fca"
+            android:drawableRight="@drawable/icon_add_size"
+            android:paddingLeft="40dip"
+            android:paddingRight="40dip"
+            android:singleLine="true"
+            android:text="Dodaj pytanie"
+            android:textColor="#ffffff"
+            android:textSize="12sp" />
+
+
+<!--
+        <Button
+            android:id="@+id/edSurvAddQues"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:text="Dodaj pytanie"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"
+            android:background="#992fca"></Button>
+            -->
+    </LinearLayout>
+
+</RelativeLayout>

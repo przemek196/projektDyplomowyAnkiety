@@ -13,7 +13,7 @@
     <ScrollView
        android:id="@+id/sccards"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="400dp">
         <LinearLayout
             android:id="@+id/layDialog"
             android:layout_width="match_parent"
@@ -45,6 +45,6 @@
         android:textColor="#ffffff"
         android:textSize="12sp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="20dp"></Button>
+        android:layout_marginRight="50dp"></Button>
 
 </RelativeLayout>

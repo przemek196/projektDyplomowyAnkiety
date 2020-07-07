@@ -10,11 +10,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,18 +37,23 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> {
 
+
     private static final String TAG = "RecyclerViewAdapter";
     private ArrayList<String> surveyNamesNames = new ArrayList<>();
     private ArrayList<String> questionCount = new ArrayList<>();
     private Context mContext;
     private LayoutInflater li;
+    DialogEditManager dialogEditManager;
 
     public RecyclerViewAdapter(Context context, ArrayList<String> surNames, ArrayList<String> quesSurCount) {
         surveyNamesNames = surNames;
         questionCount = quesSurCount;
         mContext = context;
         li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
     }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,6 +62,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         return holder;
+
+
     }
 
     @Override
@@ -68,17 +77,98 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.editSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //edytowac ankiete
-
-                Toast.makeText(mContext, "Kliknieto "+position, Toast.LENGTH_SHORT).show();
-
-
-
-
-
-
-
+                //edit survey
+                editSurvey();
             }
+
+            private void editSurvey() {
+
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+                List<BackItemFromAddQuestion> get_list = new ArrayList<>();
+
+
+                db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Survey/" + surveyNamesNames.get(position)
+                        + "/questions").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        for (QueryDocumentSnapshot q : queryDocumentSnapshots) {
+                            get_list.add(q.toObject(BackItemFromAddQuestion.class));
+                        }
+                        dialogEditManager = new DialogEditManager(mContext, questionCount, surveyNamesNames, false, get_list, position, position);
+                        dialogEditManager.createDialog();
+                        //   createDialog(get_list, position, false, position);
+                    }
+                });
+            }
+
+
+            /*
+            public void createDialog(List<BackItemFromAddQuestion> get_list, int position, boolean b, int surveyNamePosition) {
+                //dialog to edit survey
+                if (get_list.size() == Integer.parseInt(questionCount.get(position))) {
+                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(mContext);
+                    LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                    View mView = inflater.inflate(R.layout.dialog_edit, null);
+                    ListView listView = (ListView) mView.findViewById(R.id.edSurvListView);
+                    Button addQuestion = (Button) mView.findViewById(R.id.edSurvAddQues);
+                    ImageView backDialog = (ImageView) mView.findViewById(R.id.imVieBackDialog);
+                    mBuilder.setView(mView);
+                    AlertDialog dialog = mBuilder.create();
+
+                    addQuestion.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //add question to exist ssurvey
+                            Intent intent = new Intent(mContext, AddQuestion.class);
+                            intent.putExtra("addNew", true);
+                            intent.putExtra("questCount", questionCount.get(surveyNamePosition));
+                            intent.putExtra("surveyName", surveyNamesNames.get(surveyNamePosition));
+                            intent.putExtra("position", position);
+                            mContext.startActivity(intent);
+
+                        }
+                    });
+
+                    backDialog.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            dialog.cancel();
+                        }
+                    });
+
+                    String[] items = new String[get_list.size()];
+                    int counter = 0;
+                    for (BackItemFromAddQuestion bitem : get_list) {
+                        items[counter] = bitem.getNameOfQuestion();
+                        counter++;
+                    }
+
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_expandable_list_item_1, items);
+                    listView.setAdapter(adapter);
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                            //click edit
+                            Intent intent = new Intent(mContext, AddQuestion.class);
+                            intent.putExtra("question", get_list.get(position));
+                            intent.putExtra("surveyName", surveyNamesNames.get(surveyNamePosition));
+                            mContext.startActivity(intent);
+                        }
+                    });
+
+
+                    dialog.show();
+
+                }
+            }
+
+        */
+
+
         });
 
         holder.deleteSurvey.setOnClickListener(new View.OnClickListener() {
@@ -139,6 +229,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             }
         });
     }
+
 
     public void addToLayout(final List<BackItemFromAddQuestion> get_list, final int position, boolean hide) {
 
@@ -248,12 +339,21 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return surveyNamesNames.size();
     }
 
+    public void setQuestionCount(int position1, String questionCountString) {
+        ArrayList<String> copy = new ArrayList<>();
+        copy.addAll(questionCount);
+        questionCount.get(position1).replace(questionCount.get(position1), questionCountString);
+
+    }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView survName;
         TextView countOfQuestionTv;
         CardView parentLayout;
         ImageView deleteSurvey;
         ImageView editSurvey;
+
 
         public ViewHolder(View itemView) {
             super(itemView);

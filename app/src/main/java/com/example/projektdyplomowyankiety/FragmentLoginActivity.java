@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,7 +32,8 @@ public class FragmentLoginActivity extends Fragment {
 
     private static final String TAG = "FragmentLoginActivity";
     private Button btnNavLogIn;
-    private Button btnNavQuestRegister;
+    // private Button btnNavQuestRegister;
+    private TextView tvNavQuestRegister;
     private EditText editTextEmail;
     private EditText editTextPassword;
     private FirebaseUser mUser;
@@ -45,7 +47,7 @@ public class FragmentLoginActivity extends Fragment {
         View view = inflater.inflate(R.layout.fragmentlogin_layout, container, false);
         Log.d(TAG, "onCreateView: started");
         btnNavLogIn = (Button) view.findViewById(R.id.btnLogIn);
-        btnNavQuestRegister = (Button) view.findViewById(R.id.btnQuestRegister);
+        tvNavQuestRegister = (TextView) view.findViewById(R.id.tvQuestRegister);
         editTextEmail = (EditText) view.findViewById(R.id.edTextEmail);
         editTextPassword = (EditText) view.findViewById(R.id.edTextPassword);
         mAuth = FirebaseAuth.getInstance();
@@ -60,7 +62,7 @@ public class FragmentLoginActivity extends Fragment {
         });
 
 
-        btnNavQuestRegister.setOnClickListener(new View.OnClickListener() {
+        tvNavQuestRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Przejscie do rejestracji", Toast.LENGTH_SHORT).show();
@@ -102,7 +104,7 @@ public class FragmentLoginActivity extends Fragment {
                             if (task.isSuccessful()) {
                                 Toast.makeText(getActivity(), "Zalogowano", Toast.LENGTH_LONG).show();
                                 //go to main activity
-                               Intent intent = new Intent(getActivity(), MainMenu.class);
+                                Intent intent = new Intent(getActivity(), MainMenu.class);
                                 startActivity(intent);
 
                             } else {

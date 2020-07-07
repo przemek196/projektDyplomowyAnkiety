@@ -5,5 +5,6 @@
     <color name="colorAccent">#03DAC5</color>
 <color name="colTextEdit">#eee9ca</color>
     <color name="colblack">#050707</color>
-
+    <color name="BackgroundtWhiteColor">#ffffff</color>
+    <color name="colorEditText">#ffffff</color>
 </resources>

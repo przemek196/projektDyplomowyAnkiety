@@ -9,14 +9,18 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -27,7 +31,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainMenu extends AppCompatActivity implements AdapterView.OnItemClickListener { //extends ActionBarActivity
+public class MainMenu extends AppCompatActivity implements AdapterView.OnItemClickListener {
+    private static final String TAG = "FRAGMENT COMPLETE SURVEY"; //extends ActionBarActivity
 
     private Toolbar toolbar;
     private DrawerLayout mDrawerLayout;
@@ -109,6 +114,20 @@ public class MainMenu extends AppCompatActivity implements AdapterView.OnItemCli
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+        /*
+        String surveyName = "";
+        Bundle bundle = getIntent().getExtras();
+        if (bundle.getParcelable("fromEdit") != null)
+        {
+            surveyName = bundle.getString("fromEdit");
+        }
+
+        if (!surveyName.matches("")) {
+            setFragment(2, CalendarFragment.class);
+        }
+*/
+
+
         if (savedInstanceState == null) {
             setFragment(0, CalendarFragment.class);
         }
@@ -162,6 +181,7 @@ public class MainMenu extends AppCompatActivity implements AdapterView.OnItemCli
     }
 
     public void goToCalendarFragment() {
+
         CalendarFragment nextFrag = new CalendarFragment();
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.frame_container, nextFrag, "findThisFragment")
@@ -170,46 +190,53 @@ public class MainMenu extends AppCompatActivity implements AdapterView.OnItemCli
 
     }
 
-    @Override public void onBackPressed() {
+    public void goToCompleteSurveyFragment() {
+
+        CompleteSurveyFragment nextFrag = new CompleteSurveyFragment();
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.frame_container, nextFrag, "findThisFragment")
+                .addToBackStack(null)
+                .commit();
+
+    }
+
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment currentFragment = fragmentManager.findFragmentById(R.id.frame_container);
+
+        if (currentFragment instanceof CompleteSurveyFragment) {
+            Log.v("TAG", "find the current fragment");
+            setFragment(2, CompleteSurveyFragment.class);
+      try
+      {
+          ((CompleteSurveyFragment) currentFragment).recyclerViewAdapter.dialogEditManager.cancelDialog();
+      }catch (Exception e)
+      {
+
+      }
+
+/*
+            synchronized (((CompleteSurveyFragment) currentFragment).recyclerViewAdapter)
+            {
+                ((CompleteSurveyFragment) currentFragment).recyclerViewAdapter.notify();
+            }
+*/
+        }
+
+    //    Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+
+    }
+
+    @Override
+    public void onBackPressed() {
         Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.frame_container);
         if (!(fragment instanceof IOnBackPressed) || !((IOnBackPressed) fragment).onBackPressed()) {
             super.onBackPressed();
         }
     }
-
-
-    /*
-    @Override
-    public void onBackPressed() {
-        if (mLvDrawerMenu.getCheckedItemPosition() == 0) {
-            Intent startMain = new Intent(Intent.ACTION_MAIN);
-            startMain.addCategory(Intent.CATEGORY_HOME);
-            startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(startMain);
-            //    super.onBackPressed();
-        } else if (mLvDrawerMenu.getCheckedItemPosition() == 1) {
-         //jezeli w tworzeniu ankiety mamy juz jakies dane
-
-
-            Toast.makeText(this, "asdasdasdsadasd", Toast.LENGTH_SHORT).show();
-
-        } else {
-            setFragment(0, CalendarFragment.class);
-            tvToolbar.setText(itemsText[0]);
-        }
-
-
-        if (mDrawerLayout.isDrawerOpen(mLvDrawerMenu)) {
-            mDrawerLayout.closeDrawer(mLvDrawerMenu);
-
-
-        } else {
-            super.onBackPressed();
-        }
-    }
-   */
-
-
 
     /**
      * When using the ActionBarDrawerToggle, you must call it during

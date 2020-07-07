@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,7 +33,8 @@ public class FragmentRegisterActivity extends Fragment {
     View view;
     private static final String TAG = "FragmentRegisActivity";
     private Button btnRegister;
-    private Button btnNavQuestLogin;
+    //  private Button btnNavQuestLogin;
+    private TextView tvNavQuestLogin;
     private FirebaseUser mUser;
     private FirebaseAuth mAuth;
     private EditText editTextEmail;
@@ -45,7 +47,7 @@ public class FragmentRegisterActivity extends Fragment {
         view = inflater.inflate(R.layout.fragmentregister_layout, container, false);
         Log.d(TAG, "onCreateView: started");
         btnRegister = (Button) view.findViewById(R.id.btnRegister);
-        btnNavQuestLogin = (Button) view.findViewById(R.id.btnQuestLogIn);
+       tvNavQuestLogin = (TextView) view.findViewById(R.id.tvQuestLogIn);
         editTextEmail = (EditText) view.findViewById(R.id.edTextEmail);
         editTextPassword = (EditText) view.findViewById(R.id.edTextPassword);
         mAuth = FirebaseAuth.getInstance();
@@ -61,7 +63,8 @@ public class FragmentRegisterActivity extends Fragment {
         });
 
 
-        btnNavQuestLogin.setOnClickListener(new View.OnClickListener() {
+
+        tvNavQuestLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getActivity(), "Przejscie do logowania", Toast.LENGTH_SHORT).show();

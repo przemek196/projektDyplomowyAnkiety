@@ -294,6 +294,8 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
                 writer = new CSVWriter(new FileWriter(file));
                 writer.writeAll(survString);
                 writer.close();
+                Toast.makeText(context, "Zapisano plik.", Toast.LENGTH_SHORT).show();
+                ((MainMenu) getActivity()).goToCalendarFragment();
             } catch (IOException e) {
                 Toast.makeText(context, "Nie zapisano csv", Toast.LENGTH_SHORT).show();
             }
