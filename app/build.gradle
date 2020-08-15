@@ -42,7 +42,7 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-core-utils:1.0.0'
     implementation 'com.github.prolificinteractive:material-calendarview:1.5.0' //calendar
     implementation 'com.applandeo:material-calendar-view:1.7.0'//calendar
-   implementation 'com.applandeo:material-calendar-view:1.4.0'
+    implementation 'com.applandeo:material-calendar-view:1.4.0'
     implementation 'com.opencsv:opencsv:5.1'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'

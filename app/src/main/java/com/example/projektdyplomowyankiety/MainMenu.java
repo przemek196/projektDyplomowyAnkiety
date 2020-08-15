@@ -174,6 +174,10 @@ public class MainMenu extends AppCompatActivity implements AdapterView.OnItemCli
                 tvToolbar.setText(itemsText[3]);
                 break;
             case 4:
+                setFragment(3, ManageNotificationsFragment.class);
+                tvToolbar.setText(itemsText[4]);
+                break;
+            case 5:
                 mDrawerLayout.closeDrawer(mLvDrawerMenu);
                 mLvDrawerMenu.invalidateViews();
                 break;
@@ -210,13 +214,11 @@ public class MainMenu extends AppCompatActivity implements AdapterView.OnItemCli
         if (currentFragment instanceof CompleteSurveyFragment) {
             Log.v("TAG", "find the current fragment");
             setFragment(2, CompleteSurveyFragment.class);
-      try
-      {
-          ((CompleteSurveyFragment) currentFragment).recyclerViewAdapter.dialogEditManager.cancelDialog();
-      }catch (Exception e)
-      {
+            try {
+                ((CompleteSurveyFragment) currentFragment).recyclerViewAdapter.dialogEditManager.cancelDialog();
+            } catch (Exception e) {
 
-      }
+            }
 
 /*
             synchronized (((CompleteSurveyFragment) currentFragment).recyclerViewAdapter)
@@ -226,7 +228,7 @@ public class MainMenu extends AppCompatActivity implements AdapterView.OnItemCli
 */
         }
 
-    //    Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
+        //    Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
 
     }
 

@@ -29,7 +29,6 @@ import com.google.firebase.auth.FirebaseUser;
 
 public class FragmentRegisterActivity extends Fragment {
 
-
     View view;
     private static final String TAG = "FragmentRegisActivity";
     private Button btnRegister;
@@ -97,21 +96,14 @@ public class FragmentRegisterActivity extends Fragment {
         } else {
             progDialog.setMessage("Rejestracja trwa ...");
             progDialog.show();
-
-            // tworzysz urzytkownika
             mAuth.createUserWithEmailAndPassword(email, password)
                     .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
-
                                 Toast.makeText(getActivity(), "Rejestracja udana.", Toast.LENGTH_LONG).show();
-
-                                // go to main activity
                                 Intent intent = new Intent(getActivity(), MainMenu.class);
                                 startActivity(intent);
-
-
                             } else {
                                 Toast.makeText(getActivity(), "Błąd rejestracji.", Toast.LENGTH_LONG).show();
                             }

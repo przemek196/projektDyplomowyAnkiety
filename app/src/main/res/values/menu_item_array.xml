@@ -5,6 +5,7 @@
         <item>Stwórz ankietę</item>
         <item>Wypełnij ankietę</item>
         <item>Wygeneruj do CSV</item>
+        <item>Zarządzaj powiadomieniami</item>
 
     </string-array>
 
@@ -13,6 +14,7 @@
         <item>@drawable/add</item>
         <item>@drawable/complete</item>
         <item>@drawable/csv_icon</item>
+        <item>@drawable/ic_notification</item>
     </array>
 
 

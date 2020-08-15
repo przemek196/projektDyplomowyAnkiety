@@ -50,8 +50,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         questionCount = quesSurCount;
         mContext = context;
         li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-
     }
 
 
@@ -62,8 +60,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         return holder;
-
-
     }
 
     @Override
@@ -72,7 +68,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         holder.survName.setText(surveyNamesNames.get(position));
         holder.countOfQuestionTv.setText(mContext.getResources().getString(R.string.countOfQues) + questionCount.get(position));
-
 
         holder.editSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -364,4 +359,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             editSurvey = itemView.findViewById(R.id.imEditSurvey);
         }
     }
+
+
+
+
+
 }

@@ -48,4 +48,5 @@
     <string name="strDo">Wykonaj</string>
     <string name="strEditQuestion">Edytuj pytanie</string>
     <string name="quesUpdated">Pytanie zaktualizowane</string>
+    <string name="strdeleteNotif">Czy na pewno chcesz usunąć dane powiadomienie?</string>
 </resources>

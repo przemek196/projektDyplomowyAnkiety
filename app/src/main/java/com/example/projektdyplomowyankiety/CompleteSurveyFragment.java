@@ -41,7 +41,6 @@ public class CompleteSurveyFragment extends Fragment implements IOnBackPressed {
     private DocumentReference surveyDocRef;
     private FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
     private CollectionReference survRef = db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Survey");
-    private CollectionReference exRef = db.collection("Users");
     private String collection_path;
     private int count = 0;
     private String a;
@@ -80,9 +79,7 @@ public class CompleteSurveyFragment extends Fragment implements IOnBackPressed {
 
     @Override
     public boolean onBackPressed() {
-
         ((MainMenu) getActivity()).goToCalendarFragment();
-
         return true;
     }
 
@@ -110,6 +107,5 @@ public class CompleteSurveyFragment extends Fragment implements IOnBackPressed {
                 writeTolist(surNames, quesSurCount);
             }
         });
-
     }
 }

@@ -1,9 +1,11 @@
 package com.example.projektdyplomowyankiety;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +21,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 
 import java.util.ArrayList;
@@ -154,9 +160,13 @@ public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
 
 
     private void createSurvey() {
-
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        String path = "Users/" + currentFirebaseUser.getUid() + "/Created_Survey";
+        db = FirebaseFirestore.getInstance();
         //check if the name is empty and if a question is not added
         //add new survey to database
+
+
         if (completeSurvey.size() == 0 && survName.getText().toString().matches("")) {
             Toast.makeText(getContext(), getResources().getString(R.string.strCreateSurvEmptyName), Toast.LENGTH_SHORT).show();
         } else if (completeSurvey.size() == 0) {
@@ -164,25 +174,50 @@ public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
         } else if (survName.getText().toString().matches("")) {
             Toast.makeText(getContext(), getResources().getString(R.string.strNotAddQuestionAndemptyName), Toast.LENGTH_SHORT).show();
         } else {
-            db = FirebaseFirestore.getInstance();
-            FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
-            String path = "Users/" + currentFirebaseUser.getUid() + "/Created_Survey";
-            Map<String, Object> obj = new HashMap<>();
+            db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                    if (task.isSuccessful()) {
+                        List<String> list = new ArrayList<>();
+                        for (QueryDocumentSnapshot document : task.getResult()) {
+                            if(document.getId().equals(survName.getText().toString()))
+                            {
+                                Toast.makeText(getContext(), "Ankieta o podanej nazwie już istnieje.", Toast.LENGTH_SHORT).show();
+                                return;
+                            }
+                        }
+                        saveNewSurvey(path);
+                    } else {
+                        Log.d(TAG, "Error getting documents: ", task.getException());
+                    }
+                }
+            });
 
-            obj.put("liczbaPytan", Integer.toString(completeSurvey.size()));
-            obj.put("nazwa", survName.getText().toString());
-            db.collection(path).document(survName.getText().toString()).set(obj);
 
-            for (BackItemFromAddQuestion b : completeSurvey) {
-                db.collection(path).document(survName.getText().toString()).collection("questions").document(b.getNameOfQuestion()).set(b);
-            }
 
-            //toast and go to calendar fragment
-            Toast.makeText(getContext(), getResources().getString(R.string.strSurvCreated), Toast.LENGTH_LONG).show();
-            goToCalendarFragment();
+
         }
     }
+
+    private void saveNewSurvey(String path) {
+
+        Map<String, Object> obj = new HashMap<>();
+
+        obj.put("liczbaPytan", Integer.toString(completeSurvey.size()));
+        obj.put("nazwa", survName.getText().toString());
+        db.collection(path).document(survName.getText().toString()).set(obj);
+
+        for (BackItemFromAddQuestion b : completeSurvey) {
+            db.collection(path).document(survName.getText().toString()).collection("questions").document(b.getNameOfQuestion()).set(b);
+        }
+
+        //toast and go to calendar fragment
+        Toast.makeText(getContext(), getResources().getString(R.string.strSurvCreated), Toast.LENGTH_LONG).show();
+        goToCalendarFragment();
+
+    }
+
 
     private void goToCalendarFragment() {
         CalendarFragment nextFrag = new CalendarFragment();
