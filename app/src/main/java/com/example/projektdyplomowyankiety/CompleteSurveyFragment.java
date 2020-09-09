@@ -1,6 +1,7 @@
 package com.example.projektdyplomowyankiety;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,6 +16,11 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+
+import com.example.projektdyplomowyankiety.MainMenu;
+import com.example.projektdyplomowyankiety.R;
+import com.example.projektdyplomowyankiety.RecyclerViewAdapter;
+import com.example.projektdyplomowyankiety.used_classes.BackItemFromAddQuestion;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -27,13 +33,12 @@ import com.google.firebase.firestore.QuerySnapshot;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CompleteSurveyFragment extends Fragment implements IOnBackPressed {
+public class CompleteSurveyFragment extends Fragment implements com.example.projektdyplomowyankiety.IOnBackPressed {
 
 
     View view;
 
     private List<BackItemFromAddQuestion> loadedSurvey = new ArrayList<>();
-    private List<CountAndNameSurvey> nameAndCount = new ArrayList<>();
     private ArrayList<String> surNames = new ArrayList<>();
     private ArrayList<String> quesSurCount = new ArrayList<String>();
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
@@ -46,9 +51,10 @@ public class CompleteSurveyFragment extends Fragment implements IOnBackPressed {
     private String a;
     private static final String TAG = "Complete Survey Frag";
     RecyclerViewAdapter recyclerViewAdapter;
-
-
+    Context mContext;
+    String surNotname = "";
     private int LAUNCH_SECOND_ACTIVITY = 1;
+    String surNotName = "";
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -71,8 +77,14 @@ public class CompleteSurveyFragment extends Fragment implements IOnBackPressed {
         collection_path = "Users/" + currentFirebaseUser.getUid() + "/Created_Survey";
         surveyColRef = db.collection(collection_path);
         surveyDocRef = surveyColRef.getParent();
-        loadNamesOfSurveys();
+        mContext = getContext();
 
+
+        Bundle args = getArguments();
+        if (args != null) {
+            surNotname = args.getString("surNotName");
+        }
+            loadNamesOfSurveys();
         return view;
     }
 
@@ -87,10 +99,10 @@ public class CompleteSurveyFragment extends Fragment implements IOnBackPressed {
     private void writeTolist(ArrayList<String> surNames, ArrayList<String> quesSurCount) {
 
         RecyclerView recyclerView = view.findViewById(R.id.rVitemlist);
-        DividerItemDecoration itemDecor = new DividerItemDecoration(getContext(), DividerItemDecoration.VERTICAL);
+        DividerItemDecoration itemDecor = new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(itemDecor);
 
-        recyclerViewAdapter = new RecyclerViewAdapter(getContext(), surNames, quesSurCount);//tutaj dac liste
+        recyclerViewAdapter = new RecyclerViewAdapter(mContext, surNames, quesSurCount, surNotname);//tutaj dac liste
         recyclerView.setAdapter(recyclerViewAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }

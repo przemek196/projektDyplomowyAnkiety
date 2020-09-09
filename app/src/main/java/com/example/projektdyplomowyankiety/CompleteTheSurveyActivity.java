@@ -1,12 +1,11 @@
 package com.example.projektdyplomowyankiety;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,6 +18,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.projektdyplomowyankiety.used_classes.BackItemFromAddQuestion;
+import com.example.projektdyplomowyankiety.used_classes.CompleteSurvey;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -29,7 +30,6 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,28 +39,15 @@ import java.util.Map;
 
 public class CompleteTheSurveyActivity extends AppCompatActivity {
 
-    public enum QuestionTypeChoice {
-        jedna(R.string.strJZW),
-        kilka(R.string.strKZW),
-        opis(R.string.strO);
-
-        private int mResourceId;
-
-        private QuestionTypeChoice(int id) {
-            mResourceId = id;
-        }
-    }
-
     List<BackItemFromAddQuestion> get_list = new ArrayList<>();
     private LinearLayout linlay;
     private String survName = "";
     private boolean replace;
-
+Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_complete_thesurvey);
-
         Button btnConfirm = (Button) findViewById(R.id.btnConfirmCompleteSurvey);
         linlay = (LinearLayout) findViewById(R.id.linearLayoutCompleteTheSurvey);
 
@@ -160,6 +147,7 @@ public class CompleteTheSurveyActivity extends AppCompatActivity {
         writeToDatabase(questionList);
 //przejsie do poprzedniej aktywnsci
         Intent returnIntent = new Intent();
+        returnIntent.putExtra("1", "1");
         setResult(Activity.RESULT_OK, returnIntent);
         finish();
 
@@ -175,11 +163,10 @@ public class CompleteTheSurveyActivity extends AppCompatActivity {
 
         Map<String, Object> obj = new HashMap<>();
 
-
         Date cDate = new Date();
         String fDate = new SimpleDateFormat("dd-MM-yyyy").format(cDate);
 
-        if (replace == true) { //jezeli jest już ankieta to nie wstawiam daty tylko kopiuje
+        if (replace == true) {
             db.collection(path + "/" + survName + "/" + fDate).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -202,13 +189,6 @@ public class CompleteTheSurveyActivity extends AppCompatActivity {
             int coun = 0;
             for (CompleteSurvey q : questionList) {
                 sb.append(coun);
-/*
-                if (q.getAnswers().size() == 0) {
-                    List<String> noAns = new ArrayList<>();
-                    noAns.add("Brak odpowiedzi.");
-                    q.setAnswers(noAns);
-                }
-*/
                 String strI = sb.toString();
                 db.collection(path).document(survName).collection(fDate).document(q.getName().substring(0, 1)).set(q);
                 coun++;
@@ -283,7 +263,6 @@ public class CompleteTheSurveyActivity extends AppCompatActivity {
 
             linParent.addView(linchild1, linParent.getChildCount());
 
-            //tutaj fajnie jakby pobierało z resources
             switch (b.getNameOfQuestionType()) {
                 case "Jedna z wielu":
 

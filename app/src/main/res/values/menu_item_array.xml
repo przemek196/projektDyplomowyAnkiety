@@ -4,8 +4,10 @@
         <item>Kalendarz ankiet</item>
         <item>Stwórz ankietę</item>
         <item>Wypełnij ankietę</item>
-        <item>Wygeneruj do CSV</item>
+        <item>Wygeneruj do CLS</item>
         <item>Zarządzaj powiadomieniami</item>
+        <item></item>
+        <item>Zmiana hasła</item>
 
     </string-array>
 
@@ -15,6 +17,7 @@
         <item>@drawable/complete</item>
         <item>@drawable/csv_icon</item>
         <item>@drawable/ic_notification</item>
+        <item></item>
     </array>
 
 

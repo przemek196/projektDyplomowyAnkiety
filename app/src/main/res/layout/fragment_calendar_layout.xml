@@ -6,11 +6,19 @@
     android:orientation="vertical"
     android:scrollbars="vertical">
 
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Brak dostępu do internetu"
+        android:id="@+id/Internet"
+        android:textSize="20dp"
+        android:layout_gravity="center"
+        />
     <com.applandeo.materialcalendarview.CalendarView
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         app:headerColor="@color/daysLabelColor"/>
 
 

@@ -21,6 +21,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import com.example.projektdyplomowyankiety.EntryActivity;
+import com.example.projektdyplomowyankiety.MainMenu;
+import com.example.projektdyplomowyankiety.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -32,7 +35,6 @@ public class FragmentRegisterActivity extends Fragment {
     View view;
     private static final String TAG = "FragmentRegisActivity";
     private Button btnRegister;
-    //  private Button btnNavQuestLogin;
     private TextView tvNavQuestLogin;
     private FirebaseUser mUser;
     private FirebaseAuth mAuth;
@@ -46,7 +48,7 @@ public class FragmentRegisterActivity extends Fragment {
         view = inflater.inflate(R.layout.fragmentregister_layout, container, false);
         Log.d(TAG, "onCreateView: started");
         btnRegister = (Button) view.findViewById(R.id.btnRegister);
-       tvNavQuestLogin = (TextView) view.findViewById(R.id.tvQuestLogIn);
+        tvNavQuestLogin = (TextView) view.findViewById(R.id.tvQuestLogIn);
         editTextEmail = (EditText) view.findViewById(R.id.edTextEmail);
         editTextPassword = (EditText) view.findViewById(R.id.edTextPassword);
         mAuth = FirebaseAuth.getInstance();
@@ -60,7 +62,6 @@ public class FragmentRegisterActivity extends Fragment {
                 registerNewUser();
             }
         });
-
 
 
         tvNavQuestLogin.setOnClickListener(new View.OnClickListener() {
@@ -85,8 +86,7 @@ public class FragmentRegisterActivity extends Fragment {
             Toast.makeText(getActivity(), "Podaj Prawidłowy Adres Email.", Toast.LENGTH_LONG).show();
             return;
         }
-
-        if (TextUtils.isEmpty(password) || password.length() < 4 || password.length() > 10) {
+        if (TextUtils.isEmpty(password) || password.length() < 4 || password.length() > 16) {
             Toast.makeText(getActivity(), "Podaj Prawidłowe Hasło.", Toast.LENGTH_LONG).show();
             return;
         }

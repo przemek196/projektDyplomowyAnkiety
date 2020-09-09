@@ -7,4 +7,6 @@
     <color name="colblack">#050707</color>
     <color name="BackgroundtWhiteColor">#ffffff</color>
     <color name="colorEditText">#ffffff</color>
+    <color name="gray">#dde1e6</color>
+    <color name="toolbar">#602A33</color>
 </resources>

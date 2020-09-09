@@ -1,7 +1,6 @@
 package com.example.projektdyplomowyankiety;
 
 import android.app.Activity;
-import android.app.PendingIntent;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +20,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
+import com.example.projektdyplomowyankiety.used_classes.BackItemFromAddQuestion;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +35,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
+public class CreateSurveyFragment extends Fragment implements com.example.projektdyplomowyankiety.IOnBackPressed {
 
 
     View view;
@@ -48,6 +48,7 @@ public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
     private FirebaseFirestore db;
     private EditText survName;
     private int LAUNCH_SECOND_ACTIVITY = 1;
+    private TextView noQyest;
     public int counter = 1;
     private static final String TAG = "Calendar Fragment";
 
@@ -71,6 +72,9 @@ public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
     //add question to show list
     private void addQuestionToShowList(BackItemFromAddQuestion backItem) {
 
+        if (noQyest.getVisibility() == View.VISIBLE) {
+            noQyest.setVisibility(View.GONE);
+        }
         LayoutInflater inflater = getLayoutInflater();
         final View rowView = inflater.inflate(R.layout.show_complete_question_layout, null);
 
@@ -86,6 +90,7 @@ public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
 
         for (String s : backItem.getQuestionList()) {
             TextView tv = new TextView(getContext());
+            tv.setTextColor(R.color.gray);
             tv.setText("-" + s);
             linLay.addView(tv);
         }
@@ -108,6 +113,7 @@ public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
         btnAddSurvey = (Button) view.findViewById(R.id.btnCreateSurvey);
         cardViewQuestion = (CardView) view.findViewById(R.id.cardViewShowQuestion);
         survName = (EditText) view.findViewById(R.id.edTextSurveyName);
+        noQyest = (TextView) view.findViewById(R.id.noQuest);
 
         btnAddSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,7 +150,7 @@ public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
                             break;
 
                         case DialogInterface.BUTTON_NEGATIVE:
-                        break;
+                            break;
                     }
                 }
             };
@@ -168,11 +174,11 @@ public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
 
 
         if (completeSurvey.size() == 0 && survName.getText().toString().matches("")) {
-            Toast.makeText(getContext(), getResources().getString(R.string.strCreateSurvEmptyName), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getResources().getString(R.string.strNotAddQuestionAndemptyName), Toast.LENGTH_SHORT).show();
         } else if (completeSurvey.size() == 0) {
             Toast.makeText(getContext(), getResources().getString(R.string.strNotAddQuestion), Toast.LENGTH_SHORT).show();
-        } else if (survName.getText().toString().matches("")) {
-            Toast.makeText(getContext(), getResources().getString(R.string.strNotAddQuestionAndemptyName), Toast.LENGTH_SHORT).show();
+        } else if (survName.getText().toString().matches("" )) {
+            Toast.makeText(getContext(), getResources().getString(R.string.strCreateSurvEmptyName), Toast.LENGTH_SHORT).show();
         } else {
 
             db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
@@ -181,8 +187,7 @@ public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
                     if (task.isSuccessful()) {
                         List<String> list = new ArrayList<>();
                         for (QueryDocumentSnapshot document : task.getResult()) {
-                            if(document.getId().equals(survName.getText().toString()))
-                            {
+                            if (document.getId().equals(survName.getText().toString())) {
                                 Toast.makeText(getContext(), "Ankieta o podanej nazwie już istnieje.", Toast.LENGTH_SHORT).show();
                                 return;
                             }
@@ -193,8 +198,6 @@ public class CreateSurveyFragment extends Fragment implements IOnBackPressed {
                     }
                 }
             });
-
-
 
 
         }

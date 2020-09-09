@@ -47,6 +47,18 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     }
 
 
+    public void updateAdapter(Context context, String s, String days1, String timeOfNotif) {
+
+        mContext = context;
+        notificationSurveysName.add(s);
+        days.add(days1);
+        times.add(timeOfNotif);
+
+        // refresh
+        notifyDataSetChanged();
+    }
+
+
     @NonNull
     @Override
     public NotificationAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -137,6 +149,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         notifyItemRemoved(position);
         notifyItemRangeChanged(position, notificationSurveysName.size());
         notifyDataSetChanged();
+
     }
 
 

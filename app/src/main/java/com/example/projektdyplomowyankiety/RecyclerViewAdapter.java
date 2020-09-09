@@ -1,7 +1,9 @@
 package com.example.projektdyplomowyankiety;
 
+import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,17 +12,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projektdyplomowyankiety.used_classes.BackItemFromAddQuestion;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,12 +43,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> questionCount = new ArrayList<>();
     private Context mContext;
     private LayoutInflater li;
+    private String surNotName;
     DialogEditManager dialogEditManager;
 
-    public RecyclerViewAdapter(Context context, ArrayList<String> surNames, ArrayList<String> quesSurCount) {
+    public RecyclerViewAdapter(Context context, ArrayList<String> surNames, ArrayList<String> quesSurCount, String surName) {
         surveyNamesNames = surNames;
         questionCount = quesSurCount;
         mContext = context;
+        surNotName = surName;
         li = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -65,6 +67,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called.");
+
+        if (surNotName != null)
+            if (!surNotName.matches("")) {
+                if (surveyNamesNames.get(position).equals(surNotName)) {
+                    loadSurvey(position);
+                }
+            }
 
         holder.survName.setText(surveyNamesNames.get(position));
         holder.countOfQuestionTv.setText(mContext.getResources().getString(R.string.countOfQues) + questionCount.get(position));
@@ -97,73 +106,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 });
             }
 
-
-            /*
-            public void createDialog(List<BackItemFromAddQuestion> get_list, int position, boolean b, int surveyNamePosition) {
-                //dialog to edit survey
-                if (get_list.size() == Integer.parseInt(questionCount.get(position))) {
-                    AlertDialog.Builder mBuilder = new AlertDialog.Builder(mContext);
-                    LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                    View mView = inflater.inflate(R.layout.dialog_edit, null);
-                    ListView listView = (ListView) mView.findViewById(R.id.edSurvListView);
-                    Button addQuestion = (Button) mView.findViewById(R.id.edSurvAddQues);
-                    ImageView backDialog = (ImageView) mView.findViewById(R.id.imVieBackDialog);
-                    mBuilder.setView(mView);
-                    AlertDialog dialog = mBuilder.create();
-
-                    addQuestion.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //add question to exist ssurvey
-                            Intent intent = new Intent(mContext, AddQuestion.class);
-                            intent.putExtra("addNew", true);
-                            intent.putExtra("questCount", questionCount.get(surveyNamePosition));
-                            intent.putExtra("surveyName", surveyNamesNames.get(surveyNamePosition));
-                            intent.putExtra("position", position);
-                            mContext.startActivity(intent);
-
-                        }
-                    });
-
-                    backDialog.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            dialog.cancel();
-                        }
-                    });
-
-                    String[] items = new String[get_list.size()];
-                    int counter = 0;
-                    for (BackItemFromAddQuestion bitem : get_list) {
-                        items[counter] = bitem.getNameOfQuestion();
-                        counter++;
-                    }
-
-
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, android.R.layout.simple_expandable_list_item_1, items);
-                    listView.setAdapter(adapter);
-
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                            //click edit
-                            Intent intent = new Intent(mContext, AddQuestion.class);
-                            intent.putExtra("question", get_list.get(position));
-                            intent.putExtra("surveyName", surveyNamesNames.get(surveyNamePosition));
-                            mContext.startActivity(intent);
-                        }
-                    });
-
-
-                    dialog.show();
-
-                }
-            }
-
-        */
-
-
         });
 
         holder.deleteSurvey.setOnClickListener(new View.OnClickListener() {
@@ -178,13 +120,34 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
                                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                                 FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                                db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Survey/"
-                                ).document(surveyNamesNames.get(position)).delete();
+                                //
 
-                                surveyNamesNames.remove(position);
-                                questionCount.remove(position);
+                                db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Survey/" + surveyNamesNames.get(position)
+                                        + "/" + "questions").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        for (QueryDocumentSnapshot q : queryDocumentSnapshots) {
+                                            q.getReference().delete();
+                                        }
+                                        db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Survey/"
+                                        ).document(surveyNamesNames.get(position)).delete();
+                                    }
+                                });
 
-                                notifyItemRemoved(position);
+
+                                //delete notif
+
+                                db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Notif/" + surveyNamesNames.get(position)
+                                        + "/" + "days").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                    @Override
+                                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                        List<Integer> hashcodes = new ArrayList<>();
+                                        for (QueryDocumentSnapshot q : queryDocumentSnapshots) {
+                                            hashcodes.add(q.getLong("hashCode").intValue());
+                                        }
+                                        removeNotif(hashcodes, db, currentFirebaseUser, position);
+                                    }
+                                });
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
@@ -205,29 +168,58 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             @Override
             public void onClick(View view) {
                 Log.d(TAG, "onClick: clicked on: " + surveyNamesNames.get(position));
-
-                final List<BackItemFromAddQuestion> get_list = new ArrayList<>();
-                FirebaseFirestore db = FirebaseFirestore.getInstance();
-                FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-
-                //load object from firestore
-                db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Survey/" + surveyNamesNames.get(position)
-                        + "/questions").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        for (QueryDocumentSnapshot q : queryDocumentSnapshots) {
-                            get_list.add(q.toObject(BackItemFromAddQuestion.class));
-                        }
-                        addToLayout(get_list, position, false);
-                    }
-                });
+                loadSurvey(position);
             }
         });
     }
 
+    private void loadSurvey(int position)
+    {
+        final List<BackItemFromAddQuestion> get_list = new ArrayList<>();
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+        FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        //load object from firestore
+        db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Survey/" + surveyNamesNames.get(position)
+                + "/questions").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot q : queryDocumentSnapshots) {
+                    get_list.add(q.toObject(BackItemFromAddQuestion.class));
+                }
+                addToLayout(get_list, position, false);
+            }
+        });
+
+    }
+
+    private void removeNotif(List<Integer> hashcodes, FirebaseFirestore db, FirebaseUser currentFirebaseUser, int position) {
+        for (Integer i : hashcodes) {
+            AlarmManager alarmManager = (AlarmManager) mContext.getSystemService(Context.ALARM_SERVICE);
+            Intent myIntent = new Intent(mContext, ReminderBroadcast.class);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                    mContext, i, myIntent, 0);
+            alarmManager.cancel(pendingIntent);
+        }
+
+        db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Notif/" + surveyNamesNames.get(position)
+                + "/" + "days").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                for (QueryDocumentSnapshot q : queryDocumentSnapshots) {
+                    q.getReference().delete();
+                }
+                db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Notif").document(surveyNamesNames.get(position)).delete();
+                surveyNamesNames.remove(position);
+                questionCount.remove(position);
+                notifyItemRemoved(position);
+            }
+        });
+
+    }
+
 
     public void addToLayout(final List<BackItemFromAddQuestion> get_list, final int position, boolean hide) {
-
 
         final Dialog d = new Dialog(mContext);
         if (hide == true) {
@@ -317,8 +309,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                 });
             }
         });
-
-
     }
 
     private void goToComplAct(List<BackItemFromAddQuestion> get_list, int position, boolean replace) {
@@ -326,6 +316,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         i.putExtra("replace", replace);
         i.putExtra("parcel", (Serializable) get_list);
         i.putExtra("survName", surveyNamesNames.get(position));
+
         mContext.startActivity(i);
     }
 
@@ -359,9 +350,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
             editSurvey = itemView.findViewById(R.id.imEditSurvey);
         }
     }
-
-
-
 
 
 }

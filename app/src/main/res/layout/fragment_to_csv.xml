@@ -95,7 +95,7 @@
             android:id="@+id/btnToCSV"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#992fca"
+            android:background="#991823"
             android:drawableRight="@drawable/csv_icon_size"
             android:paddingLeft="50dip"
             android:paddingRight="50dp"

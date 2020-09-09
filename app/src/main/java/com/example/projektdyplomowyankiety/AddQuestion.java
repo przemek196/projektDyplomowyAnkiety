@@ -1,8 +1,6 @@
 package com.example.projektdyplomowyankiety;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
 import android.app.Activity;
 import android.content.Context;
@@ -22,6 +20,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.projektdyplomowyankiety.used_classes.BackItemFromAddQuestion;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -119,11 +118,9 @@ public class AddQuestion extends AppCompatActivity {
         btnconfirmQuestions.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 //send data to CreateSurveyFragment
                 backItem = new BackItemFromAddQuestion();
                 backItem.setNameOfQuestion(edTextGiveQues.getText().toString());
-
                 switch (questionType.getCheckedRadioButtonId()) {
                     case R.id.rb1:
                         backItem.setNameOfQuestionType(r1.getText().toString());
@@ -221,13 +218,9 @@ public class AddQuestion extends AppCompatActivity {
                                     db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Survey/" + surveyName
                                             + "/questions").document(backItem.getNameOfQuestion()).set(backItem);
                                     Toast.makeText(AddQuestion.this, getResources().getString(R.string.quesUpdated), Toast.LENGTH_SHORT).show();
-
                                     closeActivity();
-                                    //wywoalc dzialog z pozycja
-                                    //   ((RecyclerViewAdapter)getActivity()).startChronometer();
                                 }
                             }
-
                         }
                     });
 

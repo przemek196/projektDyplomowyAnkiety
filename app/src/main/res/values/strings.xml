@@ -24,7 +24,7 @@
     <string name="strWarning">Ostrzeżenie.</string>
     <string name="strAgainFillSurv">"Ponowne wypełnienie ankiety spowoduje usunięcie poprzedniej z tego dnia. Czy chcesz ją wypełnić?"</string>
     <string name="surName">"Nazwa ankiety: "</string>
-    <string name="csvFileName">"Podaj nazwe pliku CSV"</string>
+    <string name="csvFileName">"Podaj nazwe pliku CLS"</string>
     <string name="csvHintFileName">"Nazwa pliku"</string>
     <string name="csvGenerate">"Wygeneruj"</string>
     <string name="strBack">"Cofnij"</string>
@@ -49,4 +49,14 @@
     <string name="strEditQuestion">Edytuj pytanie</string>
     <string name="quesUpdated">Pytanie zaktualizowane</string>
     <string name="strdeleteNotif">Czy na pewno chcesz usunąć dane powiadomienie?</string>
+    <string name="strNoQuestions">Brak pytań</string>
+    <string name="strPassRemeber">Przypominanie hasła.</string>
+    <string name="strNewPass">Podaj nowe hasło</string>
+    <string name="strOldPass">Podaj stare hasło</string>
+    <string name="strGiveemail">Podaj adres e-mail</string>
+    <string name="strSend">Wyślij</string>
+    <string name="strNoRegistredUserwithThisEEmail">Brak zarejestrowanego użytkownika z podanym adresem.</string>
+    <string name="badlyCorrectedEmail">Błędnie sformatowany adres email.</string>
+    <string name="noInternetConnection1">Brak sieci. Dane nie zostaną zaktualizowane.</string>
+
 </resources>

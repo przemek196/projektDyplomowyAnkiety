@@ -1,4 +1,4 @@
-package com.example.projektdyplomowyankiety;
+package com.example.projektdyplomowyankiety.used_classes;
 
 import android.os.Parcel;
 import android.os.Parcelable;

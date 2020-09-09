@@ -32,7 +32,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#992fca"
+        android:background="#991823"
         android:drawableRight="@drawable/ic_add"
         android:paddingLeft="50dip"
         android:paddingRight="50dp"

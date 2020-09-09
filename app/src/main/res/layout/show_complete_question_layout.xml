@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-   app:cardBackgroundColor="@color/colorAccent"
+   app:cardBackgroundColor="#999999"
     app:cardCornerRadius="7dp">
 
     <LinearLayout
@@ -24,12 +24,14 @@
                 android:layout_width="15dp"
                 android:layout_height="wrap_content"
                 android:text="1."
+               android:textColor="#ffffff"
                 android:textSize="15dp"></TextView>
 
             <TextView
                 android:id="@+id/tvNameOfQuestion"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="#ffffff"
                 android:text="Czy lubisz jeść?"
                 android:textSize="15dp"></TextView>
         </LinearLayout>
@@ -38,6 +40,7 @@
            android:id="@+id/typeOfQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="#ffffff"
             android:layout_marginLeft="25dp"
             android:text="Jedna z wielu"
             android:textSize="10dp"></TextView>

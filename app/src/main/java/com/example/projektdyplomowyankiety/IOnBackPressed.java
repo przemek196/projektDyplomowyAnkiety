@@ -1,5 +1,5 @@
 package com.example.projektdyplomowyankiety;
 
-interface IOnBackPressed {
+public interface IOnBackPressed {
     boolean onBackPressed();
 }

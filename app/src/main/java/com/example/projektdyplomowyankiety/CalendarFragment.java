@@ -1,8 +1,11 @@
 package com.example.projektdyplomowyankiety;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +26,9 @@ import androidx.fragment.app.Fragment;
 import com.applandeo.materialcalendarview.CalendarView;
 import com.applandeo.materialcalendarview.EventDay;
 import com.applandeo.materialcalendarview.listeners.OnDayClickListener;
+import com.example.projektdyplomowyankiety.R;
+import com.example.projektdyplomowyankiety.IOnBackPressed;
+import com.example.projektdyplomowyankiety.used_classes.CompleteSurvey;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
@@ -42,32 +48,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Niewylogowywanie
- * Fragment frag = null;
- * frag= new CalendarFragment();
- * if(frag!=null)
- * {
- * FragmentTransaction ft = this.getFragmentManager().beginTransaction();
- * ft.replace()
- * <p>
- * }
- */
-
 
 public class CalendarFragment extends Fragment implements IOnBackPressed {
 
     View view;
     private static final String TAG = "Calendar Fragment";
     private CalendarView calendar;
-    private ScrollView sc1;
-    List<String> list = new ArrayList<>();
     List<CompleteSurvey> completeSurvey = new ArrayList<>();
     private LinearLayout mainLinLay;
     private Button btnBack;
     private LinearLayout layAnime;
-    private TextView textviewDate;    //private MaterialCalendarView calendar;
+    private TextView textviewDate;
     private Button btnClearDay;
+    private static CalendarFragment mInstance;
+    private TextView isNetwork;
+    private LinearLayout LinLayAnim;
 
     @Override
     public boolean onBackPressed() {
@@ -80,140 +75,179 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
         return true;
     }
 
+
+    public static synchronized CalendarFragment getInstance() {
+        return mInstance;
+    }
+
+    public void setConnectivityListener(ConectionReciver.ContectivityRecListener listener) {
+        ConectionReciver.contectivityRecListener = listener;
+    }
+
+    public boolean networkConnection()
+    {
+        ConnectivityManager conectivymanager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkinfo = conectivymanager.getActiveNetworkInfo();
+        if (networkinfo == null) {
+            return false;
+        } else
+            return true;
+    }
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        getActivity().setTitle("Kalendarz ankiet");
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_calendar_layout, container, false);
-
-
+        isNetwork = (TextView) view.findViewById(R.id.Internet);
         calendar = (CalendarView) view.findViewById(R.id.calendar);
-        mainLinLay = (LinearLayout) view.findViewById(R.id.linlayCal);
-        sc1 = (ScrollView) view.findViewById(R.id.sc1);
-        btnBack = (Button) view.findViewById(R.id.backBtn);
-        btnClearDay = (Button) view.findViewById(R.id.btnClearDaySurveys);
-        textviewDate = (TextView) view.findViewById(R.id.tvDate);
-        getSurveyNames();
-        layAnime = (LinearLayout) view.findViewById(R.id.linLayAnim);
-        layAnime.setVisibility(View.GONE);
+        LinLayAnim = (LinearLayout) view.findViewById(R.id.linLayAnim);
+        getActivity().setTitle("Kalendarz ankiet");
+        if(!networkConnection())
+        {
+            isNetwork.setVisibility(View.VISIBLE);
+            calendar.setVisibility(View.GONE);
+            LinLayAnim.setVisibility(View.GONE);
+        }
+        else
+        {
+            isNetwork.setVisibility(View.GONE);
+            calendar.setVisibility(View.VISIBLE);
+            LinLayAnim.setVisibility(View.VISIBLE);
+            mInstance = this;
+            mainLinLay = (LinearLayout) view.findViewById(R.id.linlayCal);
+            btnBack = (Button) view.findViewById(R.id.backBtn);
+            btnClearDay = (Button) view.findViewById(R.id.btnClearDaySurveys);
+            textviewDate = (TextView) view.findViewById(R.id.tvDate);
+
+            if (!((MainMenu) getActivity()).isNetworkConnected()) {
+                Toast.makeText(getContext(), "Brak sieci. Dane nie zostaną zaktualizowane.", Toast.LENGTH_SHORT).show();
+            } else {
+                getSurveyNames();
+            }
 
 
-        btnClearDay.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            layAnime = (LinearLayout) view.findViewById(R.id.linLayAnim);
+            layAnime.setVisibility(View.GONE);
+
+            btnClearDay.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
-                if(survNamesToDelete.size()==0)
-                {
-                    Toast.makeText(getContext(), getResources().getString(R.string.noSurvToDelete), Toast.LENGTH_SHORT).show();
-                return;
-                }
+                    if (survNamesToDelete.size() == 0) {
+                        Toast.makeText(getContext(), getResources().getString(R.string.noSurvToDelete), Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case DialogInterface.BUTTON_POSITIVE:
-                                //usunąć ankiety z tego dnia z bazy
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which) {
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    for (String csurv : survNamesToDelete) {
 
-                                for (String csurv : survNamesToDelete) {
+                                        db.collection(path).document(csurv).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                            @Override
+                                            public void onSuccess(DocumentSnapshot documentSnapshot) {
 
-                                    db.collection(path).document(csurv).get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                                        @Override
-                                        public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                                List<String> dates = new ArrayList<>();
+                                                List<String> dates1 = new ArrayList<>();
+                                                dates = (ArrayList<String>) documentSnapshot.get("dates");
 
-                                            List<String> dates = new ArrayList<>();
-                                            List<String> dates1 = new ArrayList<>();
-                                            dates = (ArrayList<String>) documentSnapshot.get("dates");
+                                                if (dates != null) {
 
-                                            if (dates != null) {
+                                                    for (String s : dates) {
+                                                        if (s.equals(curDate))
+                                                            continue;
+                                                        dates1.add(s);
+                                                    }
 
-                                                for (String s : dates) {
-                                                    if (s.equals(curDate))
-                                                        continue;
-                                                    dates1.add(s);
                                                 }
+                                                Map<String, Object> ob1 = new HashMap<>();
+                                                ob1.put("nazwa", csurv);
+                                                ob1.put("dates", dates1);
+                                                db.collection(path).document(csurv).set(ob1);
 
                                             }
-                                            Map<String, Object> ob1 = new HashMap<>();
-                                            ob1.put("nazwa", csurv);
-                                            ob1.put("dates", dates1);
-                                            db.collection(path).document(csurv).set(ob1);
+                                        });
 
-                                        }
-                                    });
-
-                                    db.collection(path + "/" + csurv + "/" + curDate).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                        @Override
-                                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                            for (QueryDocumentSnapshot q : queryDocumentSnapshots) {
-                                                q.getReference().delete();
+                                        db.collection(path + "/" + csurv + "/" + curDate).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                            @Override
+                                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                                for (QueryDocumentSnapshot q : queryDocumentSnapshots) {
+                                                    q.getReference().delete();
+                                                }
                                             }
-                                        }
-                                    });
+                                        });
+                                    }
+
+                                    Toast.makeText(getContext(), getResources().getString(R.string.deleteComplete), Toast.LENGTH_SHORT).show();
+                                    getSurveyNames();
+                                    showCalendar();
+
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+
+                                    break;
+                            }
+                        }
+                    };
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                    builder.setMessage("Czy usunąć ankiety z tego dnia?").setPositiveButton("Tak", dialogClickListener)
+                            .setNegativeButton("Nie", dialogClickListener).show();
+
+
+                }
+            });
+
+            btnBack.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                    survNamesToDelete.clear();
+                    showCalendar();
+                }
+            });
+
+            calendar.setOnDayClickListener(new OnDayClickListener() {
+                @Override
+                public void onDayClick(EventDay eventDay) {
+                    Calendar clickedDayCalendar = eventDay.getCalendar();
+
+                    Date cDate = clickedDayCalendar.getTime();
+                    String fDate = new SimpleDateFormat("dd-MM-yyyy").format(cDate);
+
+                    //pobieranie nazw ankiet
+                    db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                        @Override
+                        public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                            if (task.isSuccessful()) {
+                                List<String> list = new ArrayList<>();
+                                for (QueryDocumentSnapshot document : task.getResult()) {
+                                    list.add(document.getId());
+                                }
+                                if (list.size() > 0) {
+                                    setSurvey(list, fDate);
+                                } else {
+                                    Toast.makeText(getContext(), "Brak", Toast.LENGTH_SHORT).show();
                                 }
 
-                                //usunieto, przeładować kalendarz
-                                Toast.makeText(getContext(), getResources().getString(R.string.deleteComplete), Toast.LENGTH_SHORT).show();
-                              getSurveyNames();
-                              showCalendar();
-
-                                break;
-
-                            case DialogInterface.BUTTON_NEGATIVE:
-
-                                break;
-                        }
-                    }
-                };
-
-                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                builder.setMessage("Czy usunąć ankiety z tego dnia?").setPositiveButton("Tak", dialogClickListener)
-                        .setNegativeButton("Nie", dialogClickListener).show();
-
-
-
-
-            }
-        });
-
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                survNamesToDelete.clear();
-                showCalendar();
-            }
-        });
-
-        calendar.setOnDayClickListener(new OnDayClickListener() {
-            @Override
-            public void onDayClick(EventDay eventDay) {
-                Calendar clickedDayCalendar = eventDay.getCalendar();
-
-                Date cDate = clickedDayCalendar.getTime();
-                String fDate = new SimpleDateFormat("dd-MM-yyyy").format(cDate);
-
-                //pobieranie nazw ankiet
-                db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            List<String> list = new ArrayList<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                list.add(document.getId());
+                            } else {
+                                Log.d(TAG, "Error getting documents: ", task.getException());
                             }
-                            setSurvey(list, fDate);
-                        } else {
-                            Log.d(TAG, "Error getting documents: ", task.getException());
                         }
-                    }
-                });
+                    });
+                }
+            });
 
-                hideCalendar();
-
-            }
-        });
-
+        }
 
         return view;
     }
@@ -247,10 +281,8 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
 
     private void writeSurveyToScroll(List<CompleteSurvey> completeSurvey, String survName, String fDate) {
 
-        //Stworzyc layout z nazwa ankiety pytaniami i odpowiedziami
         survNamesToDelete.add(survName);
         curDate = fDate;
-
 
         LinearLayout linLay = new LinearLayout(getContext());
         linLay.setOrientation(LinearLayout.VERTICAL);
@@ -305,6 +337,11 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
         }
         linLay.addView(linQuest, linLayParams);
         mainLinLay.addView(linLay, mainLinLay.getChildCount() - 1);
+
+        if (calendar.getVisibility() == View.VISIBLE) {
+            hideCalendar();
+        }
+
     }
 
     private void hideCalendar() {
@@ -341,7 +378,7 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
 
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-    private String path;
+    private String path = "Users/" + currentFirebaseUser.getUid() + "/" + "Complete_Survey";
     private Typeface typeface = Typeface.DEFAULT_BOLD;
     private String strCalIcon = "";
     private int color = R.color.colblack;
@@ -355,7 +392,6 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
         int color = R.color.colblack;
         int size = 10;
         List<EventDay> events = new ArrayList<>();
-        path = "Users/" + currentFirebaseUser.getUid() + "/" + "Complete_Survey";
 
         db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override

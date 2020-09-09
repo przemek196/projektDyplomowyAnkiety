@@ -33,6 +33,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 
+import com.example.projektdyplomowyankiety.IOnBackPressed;
+import com.example.projektdyplomowyankiety.MainMenu;
+import com.example.projektdyplomowyankiety.R;
+import com.example.projektdyplomowyankiety.used_classes.CompleteSurvey;
 import com.google.android.gms.tasks.OnSuccessListener;
 
 
@@ -63,7 +67,7 @@ import java.util.Map;
 import static android.content.ContentValues.TAG;
 
 
-public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSetListener, IOnBackPressed {
+public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSetListener, com.example.projektdyplomowyankiety.IOnBackPressed {
 
 
     private TextView csvSurvName;
@@ -147,6 +151,7 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
                     Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
                     Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
 
+
                     File folder = new File(Environment.getExternalStorageDirectory() +
                             File.separator + "CSV files");
                     boolean success = true;
@@ -154,6 +159,8 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
                     if (!folder.exists()) {
                         success = folder.mkdirs();
                     }
+
+
                     button2.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -285,6 +292,7 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
     }
 
     private void saveCSVFile(List<String[]> survString, String s, List<String> datesList) {
+
         if (dateListCount == datesList.size() - 1) {
             CSVWriter writer = null;
             String Filename = "CSV files/" + s + ".csv";
@@ -328,6 +336,10 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
                         String zero1 = "";
                         if (month < 10) {
                             zero = "0";
+                        }
+                        if(month==9)
+                        {
+                            zero="";
                         }
                         if (dayOfMonth < 10) {
                             zero1 = "0";
