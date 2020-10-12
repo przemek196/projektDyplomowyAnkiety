@@ -7,7 +7,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rVitemlist"
-android:layout_marginBottom="20dp"
+        android:background="#003333"
         android:layout_width="match_parent"
         android:layout_height="match_parent"></androidx.recyclerview.widget.RecyclerView>
 

@@ -18,11 +18,14 @@ import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -68,6 +71,14 @@ public class MainMenu extends AppCompatActivity implements AdapterView.OnItemCli
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout);
         goToComplete = getIntent().getStringExtra("surNotName");
+
+
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.colorAccent));
+        }
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -260,6 +271,7 @@ public class MainMenu extends AppCompatActivity implements AdapterView.OnItemCli
         }
     }
 
+
     public void goToCalendarFragment() {
 
         CalendarFragment nextFrag = new CalendarFragment();
@@ -267,6 +279,7 @@ public class MainMenu extends AppCompatActivity implements AdapterView.OnItemCli
                 .replace(R.id.frame_container, nextFrag, "findThisFragment")
                 .addToBackStack(null)
                 .commit();
+        tvToolbar.setText(itemsText[0]);
 
     }
 
@@ -277,7 +290,7 @@ public class MainMenu extends AppCompatActivity implements AdapterView.OnItemCli
                 .replace(R.id.frame_container, nextFrag, "findThisFragment")
                 .addToBackStack(null)
                 .commit();
-
+        tvToolbar.setText(itemsText[2]);
     }
 
 

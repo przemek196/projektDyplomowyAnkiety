@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/gradient_toolbar"
+    android:background="#026767"
+
     android:minHeight="?attr/actionBarSize"
     android:orientation="vertical"
     app:theme="@style/toolbarColor"

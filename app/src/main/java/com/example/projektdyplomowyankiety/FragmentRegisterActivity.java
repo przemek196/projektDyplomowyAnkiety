@@ -25,6 +25,7 @@ import com.example.projektdyplomowyankiety.EntryActivity;
 import com.example.projektdyplomowyankiety.MainMenu;
 import com.example.projektdyplomowyankiety.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -67,7 +68,6 @@ public class FragmentRegisterActivity extends Fragment {
         tvNavQuestLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Przejscie do logowania", Toast.LENGTH_SHORT).show();
                 //navigate to fragment
                 ((EntryActivity) getActivity()).setViewPager(0);
             }
@@ -104,12 +104,22 @@ public class FragmentRegisterActivity extends Fragment {
                                 Toast.makeText(getActivity(), "Rejestracja udana.", Toast.LENGTH_LONG).show();
                                 Intent intent = new Intent(getActivity(), MainMenu.class);
                                 startActivity(intent);
-                            } else {
-                                Toast.makeText(getActivity(), "Błąd rejestracji.", Toast.LENGTH_LONG).show();
                             }
                             progDialog.dismiss();
                         }
-                    });
+                    }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    switch (e.getMessage()) {
+                        case "The email address is already in use by another account.":
+                            Toast.makeText(getContext(), "Istnieje już konto z podanym adresem e-mail.", Toast.LENGTH_SHORT).show();
+                            break;
+                        case "The email address is badly formatted.":
+                            Toast.makeText(getContext(), "Błędnie sformatowany adres email.", Toast.LENGTH_SHORT).show();
+                            break;
+                    }
+                }
+            });
         }
     }
 

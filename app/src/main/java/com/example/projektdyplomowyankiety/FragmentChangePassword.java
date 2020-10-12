@@ -37,7 +37,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
 
-public class FragmentChangePassword extends Fragment {
+public class FragmentChangePassword extends Fragment implements com.example.projektdyplomowyankiety.IOnBackPressed {
 
     View view;
     private static final String TAG = "FragmentRegisActivity";
@@ -73,14 +73,6 @@ public class FragmentChangePassword extends Fragment {
 
                 final EditText editTextpassword = (EditText) dialogView.findViewById(R.id.edt_comment);
                 Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
-                Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
-
-                button2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialogBuilder.dismiss();
-                    }
-                });
                 button1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -124,8 +116,6 @@ public class FragmentChangePassword extends Fragment {
 
             }
         });
-
-
         btnChange.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -133,8 +123,6 @@ public class FragmentChangePassword extends Fragment {
                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                 AuthCredential credential = EmailAuthProvider
                         .getCredential(user.getEmail(), oldPass.getText().toString());
-
-
                 user.reauthenticate(credential)
                         .addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
@@ -144,6 +132,10 @@ public class FragmentChangePassword extends Fragment {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             if (task.isSuccessful()) {
+                                                FirebaseAuth.getInstance().signOut();
+                                                Intent intent = new Intent(getContext(), EntryActivity.class);
+                                                startActivity(intent);
+
                                                 Toast.makeText(getContext(), "Hasło zostało zmienione.", Toast.LENGTH_SHORT).show();
                                             } else {
                                                 Toast.makeText(getContext(), "Hasło nie zostało zmienione.", Toast.LENGTH_SHORT).show();
@@ -159,17 +151,19 @@ public class FragmentChangePassword extends Fragment {
 
             }
         });
-
-
         return view;
+    }
+
+    @Override
+    public boolean onBackPressed() {
+        ((MainMenu) getActivity()).goToCalendarFragment();
+        return true;
     }
 
     private void deletAllData(FirebaseUser user) {
         FirebaseFirestore db = FirebaseFirestore.getInstance();
 
         //delete all data from firestore
-
-
              /*
                         db.collection("Users").document(user.getUid())
                                 .delete()

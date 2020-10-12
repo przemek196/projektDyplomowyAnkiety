@@ -4,7 +4,9 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:scrollbars="vertical">
+    android:scrollbars="vertical"
+    android:background="#026767"
+    >
 
     <TextView
         android:layout_width="wrap_content"
@@ -18,8 +20,15 @@
         android:id="@+id/calendar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-
-        app:headerColor="@color/daysLabelColor"/>
+        android:background="#3C4B50"
+        app:pagesColor="#7CA6A3"
+        app:daysLabelsColor="#FFFFFF"
+        app:headerLabelColor="#FFFFFF"
+        app:selectionColor="#FFFFFF"
+        app:todayLabelColor="@color/BackgroundtWhiteColor"
+        app:headerColor="#009688"
+        app:abbreviationsBarColor="#62C5BB"
+        />
 
 
     <LinearLayout
@@ -49,19 +58,18 @@
                 android:textColor="#ffffff"
                 android:textSize="12sp"></Button>
 
-
-
-
             <Button
                 android:id="@+id/btnClearDaySurveys"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="4"
-                android:background="#8A0F39"
-                android:drawableLeft="@drawable/ic_delete_size"
-               android:paddingLeft="23dp"
+                android:background="#3C4B50"
+                android:drawableLeft="@drawable/ic_delete_black_24dp"
+               android:paddingLeft="29dp"
                 android:textColor="#ffffff"
                 android:textSize="12sp"></Button>
+
+
         </LinearLayout>
 
         <TextView

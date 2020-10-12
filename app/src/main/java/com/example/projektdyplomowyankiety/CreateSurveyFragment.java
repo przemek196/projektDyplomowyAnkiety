@@ -177,10 +177,10 @@ public class CreateSurveyFragment extends Fragment implements com.example.projek
             Toast.makeText(getContext(), getResources().getString(R.string.strNotAddQuestionAndemptyName), Toast.LENGTH_SHORT).show();
         } else if (completeSurvey.size() == 0) {
             Toast.makeText(getContext(), getResources().getString(R.string.strNotAddQuestion), Toast.LENGTH_SHORT).show();
-        } else if (survName.getText().toString().matches("" )) {
+        } else if (survName.getText().toString().matches("")) {
             Toast.makeText(getContext(), getResources().getString(R.string.strCreateSurvEmptyName), Toast.LENGTH_SHORT).show();
         } else {
-
+//tutaj usunac
             db.collection(path).get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<QuerySnapshot> task) {
@@ -211,8 +211,12 @@ public class CreateSurveyFragment extends Fragment implements com.example.projek
         obj.put("nazwa", survName.getText().toString());
         db.collection(path).document(survName.getText().toString()).set(obj);
 
+        //tutaj
+        int a = 0;
         for (BackItemFromAddQuestion b : completeSurvey) {
-            db.collection(path).document(survName.getText().toString()).collection("questions").document(b.getNameOfQuestion()).set(b);
+            db.collection(path).document(survName.getText().toString()).collection("questions").document
+                    (String.valueOf(a) + "." + b.getNameOfQuestion().toString()).set(b);
+            a++;
         }
 
         //toast and go to calendar fragment

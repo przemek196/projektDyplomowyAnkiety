@@ -52,7 +52,6 @@ public class DialogEditManager {
             mView = inflater.inflate(R.layout.dialog_edit, null);
             ListView listView = (ListView) mView.findViewById(R.id.edSurvListView);
             Button addQuestion = (Button) mView.findViewById(R.id.edSurvAddQues);
-            ImageView backDialog = (ImageView) mView.findViewById(R.id.imVieBackDialog);
             mBuilder.setView(mView);
            dialog = mBuilder.create();
 
@@ -67,13 +66,6 @@ public class DialogEditManager {
                     intent.putExtra("position", position);
                     mContext.startActivity(intent);
 
-                }
-            });
-
-            backDialog.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    dialog.cancel();
                 }
             });
 

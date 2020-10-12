@@ -2,10 +2,14 @@ package com.example.projektdyplomowyankiety;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatRadioButton;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -135,7 +139,7 @@ Context mContext;
                     }
                     //description
                     if (v1 instanceof EditText) {
-                        Toast.makeText(this, "Opis " + ((EditText) v1).getText(), Toast.LENGTH_SHORT).show();
+                      //  Toast.makeText(this, "Opis " + ((EditText) v1).getText(), Toast.LENGTH_SHORT).show();
                         answ.add(((EditText) v1).getText().toString());
                         q.setAnswers(answ);
                     }
@@ -251,6 +255,10 @@ Context mContext;
 
             TextView tvQuestionNumber = new TextView(this);
             TextView tvQuestionName = new TextView(this);
+
+            tvQuestionName.setTextColor(Color.parseColor("#ffffff"));
+            tvQuestionNumber.setTextColor(Color.parseColor("#ffffff"));
+
             tvQuestionNumber.setText(count + ".");
             count++;
             tvQuestionName.setText(b.getNameOfQuestion());
@@ -270,6 +278,8 @@ Context mContext;
                     rg.setOrientation(RadioGroup.VERTICAL);//or RadioGroup.VERTICAL
                     for (String s : b.getQuestionList()) {
                         RadioButton r = new RadioButton(this);
+                        r.setTextColor(Color.parseColor("#ffffff"));
+
                         r.setText(s);
                         rg.addView(r);
                     }
@@ -282,6 +292,7 @@ Context mContext;
                     linchild2.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
                     for (String s : b.getQuestionList()) {
                         CheckBox chB = new CheckBox(this);
+                        chB.setTextColor(Color.parseColor("#ffffff"));
                         chB.setText(s);
                         linchild2.addView(chB);
                     }
@@ -290,6 +301,7 @@ Context mContext;
                     break;
                 case "Opis":
                     EditText ed = new EditText(this);
+                    ed.setTextColor(Color.parseColor("#ffffff"));
                     linParent.addView(ed);
                     linlay.addView(linParent);
                     break;

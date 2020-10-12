@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   android:layout_marginTop="10dp"
+    android:background="#003333"
     android:orientation="vertical"
     tools:context=".AddQuestion">
 
@@ -12,10 +12,13 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/giveQuestLay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:theme="@style/EditTextHint">
 
         <EditText
             android:id="@+id/edTextGiveQuest"
+            android:textColor="@color/BackgroundtWhiteColor"
             android:layout_width="329dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
@@ -37,19 +40,25 @@
           android:checked="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/strJZW"></RadioButton>
+           android:textColor="@color/BackgroundtWhiteColor"
+            android:text="@string/strJZW"
+            android:buttonTint="@color/BackgroundtWhiteColor"></RadioButton>
 
         <RadioButton
             android:id="@+id/rb2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/strKZW"></RadioButton>
+            android:text="@string/strKZW"
+            android:textColor="@color/BackgroundtWhiteColor"
+            android:buttonTint="@color/BackgroundtWhiteColor"></RadioButton>
 
         <RadioButton
             android:id="@+id/rb3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/strO"></RadioButton>
+            android:text="@string/strO"
+            android:textColor="@color/BackgroundtWhiteColor"
+            android:buttonTint="@color/BackgroundtWhiteColor"></RadioButton>
     </RadioGroup>
 
     <Button
@@ -58,7 +67,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/radioGroupTypeQuest"
         android:layout_marginLeft="15dp"
-        android:background="#991823"
+        android:background="#3C4B50"
         android:drawableLeft="@drawable/icon_add_size"
         android:drawablePadding="10dip"
         android:padding="16dp"
@@ -96,7 +105,7 @@
             android:id="@+id/btnConfirmQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#991823"
+            android:background="#3C4B50"
             android:drawableRight="@drawable/icon_create_survey_size"
             android:paddingLeft="100dip"
             android:paddingRight="100dp"

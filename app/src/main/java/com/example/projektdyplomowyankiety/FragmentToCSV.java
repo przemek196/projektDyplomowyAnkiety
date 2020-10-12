@@ -98,7 +98,7 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
         dateError.setVisibility(View.GONE);
         btnCSV = (Button) view.findViewById(R.id.btnToCSV);
 
-        csvSurvName.setOnClickListener(new View.OnClickListener() {
+        cvSName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //get all survey names and chose
@@ -122,14 +122,14 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
             }
         });
 
-        csvDateFrom.setOnClickListener(new View.OnClickListener() {
+        cvFrom.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 buildDialogAndGetDate(0);
             }
         });
 
-        csvDateTo.setOnClickListener(new View.OnClickListener() {
+        cvTo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 buildDialogAndGetDate(1);
@@ -140,7 +140,6 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
             @Override
             public void onClick(View v) {
                 //check variables and add open dialog with file name
-
                 if (checkCorrectData()) {
 
                     AlertDialog dialogBuilder = new AlertDialog.Builder(getContext()).create();
@@ -149,7 +148,7 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
 
                     final EditText editText = (EditText) dialogView.findViewById(R.id.edt_comment);
                     Button button1 = (Button) dialogView.findViewById(R.id.buttonSubmit);
-                    Button button2 = (Button) dialogView.findViewById(R.id.buttonCancel);
+
 
 
                     File folder = new File(Environment.getExternalStorageDirectory() +
@@ -160,13 +159,6 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
                         success = folder.mkdirs();
                     }
 
-
-                    button2.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            dialogBuilder.dismiss();
-                        }
-                    });
                     button1.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
@@ -187,6 +179,10 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
                     });
                     dialogBuilder.setView(dialogView);
                     dialogBuilder.show();
+                }
+                else
+                {
+                    Toast.makeText(context, "Wprowadź poprawne dane.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -314,8 +310,8 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
     }
 
     private boolean checkCorrectData() {
-        if (dateError.getCurrentTextColor() != Color.RED && !csvSurvName.getText().equals("Nazwa ankiety") && !csvDateFrom.getText().equals("Data...")
-                && !csvDateTo.getText().equals("Data...")) {
+        if (dateError.getCurrentTextColor() != Color.RED  && (!csvSurvName.getText().equals("Wprowadź dane ...") && !csvDateFrom.getText().equals("Wprowadź dane ...")
+                && !csvDateTo.getText().equals("Wprowadź dane ...")) ){
             return true;
         }
         return false;
@@ -370,12 +366,16 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
             dateError.setText("Podany przedział jest nieprawidłowy.");
             dateError.setTextColor(Color.RED);
             dateError.setVisibility(View.VISIBLE);
-            cvFrom.setBackgroundColor(Color.RED);
-            cvTo.setBackgroundColor(Color.RED);
+            csvDateFrom.setTextColor(Color.RED);
+            csvDateTo.setTextColor(Color.RED);
+         //   cvFrom.setBackgroundColor(Color.RED);
+         //   cvTo.setBackgroundColor(Color.RED);
         } else {
             dateError.setVisibility(View.GONE);
-            cvFrom.setBackgroundColor(Color.GREEN);
-            cvTo.setBackgroundColor(Color.GREEN);
+           // cvFrom.setBackgroundColor(Color.GREEN);
+           // cvTo.setBackgroundColor(Color.GREEN);
+            csvDateFrom.setTextColor(Color.GREEN);
+            csvDateTo.setTextColor(Color.GREEN);
             dateError.setTextColor(Color.GREEN);
         }
 
@@ -396,7 +396,7 @@ public class FragmentToCSV extends Fragment implements DatePickerDialog.OnDateSe
         builder.setItems(surNames, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                cvSName.setBackgroundColor(Color.GREEN);
+                csvSurvName.setTextColor(Color.GREEN);
                 csvSurvName.setText(surNames[which]);
             }
         });

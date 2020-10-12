@@ -43,28 +43,17 @@
 
         <Button
             android:id="@+id/btnSendRemindPassEmial"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginEnd="16dp"
-            android:background="#958F90"
+            android:background="#3C4B50"
             android:text="@string/strSend"
             android:textColor="#ffffff"
-            app:layout_constraintBottom_toBottomOf="@+id/btnCancDialPassRem"
+          android:layout_marginTop="20dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnCancDialPassRem" />
+            app:layout_constraintTop_toBottomOf="@+id/edt_email_pass_remind" />
 
-        <Button
-            android:id="@+id/btnCancDialPassRem"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:background="#958F90"
-            android:text="@string/strBack"
-            android:textColor="#ffffff"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/edt_email_pass_remind"
-            app:layout_constraintVertical_bias="1.0" />
+
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

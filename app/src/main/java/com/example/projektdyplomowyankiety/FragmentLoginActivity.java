@@ -88,14 +88,7 @@ public class FragmentLoginActivity extends Fragment {
 
                 final EditText email = (EditText) dialogView.findViewById(R.id.edt_email_pass_remind);
                 Button button1 = (Button) dialogView.findViewById(R.id.btnSendRemindPassEmial);
-                Button button2 = (Button) dialogView.findViewById(R.id.btnCancDialPassRem);
 
-                button2.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        dialogBuilder.dismiss();
-                    }
-                });
                 button1.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -149,7 +142,7 @@ public class FragmentLoginActivity extends Fragment {
         tvNavQuestRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "Przejscie do rejestracji", Toast.LENGTH_SHORT).show();
+
                 //navigate to fragment
                 ((EntryActivity) getActivity()).setViewPager(1);
             }

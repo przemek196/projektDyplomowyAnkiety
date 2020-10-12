@@ -4,14 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
+    android:background="#003333"
     android:orientation="vertical">
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/textInputlay"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:theme="@style/EditTextHint">
 
         <EditText
             android:id="@+id/edTextSurveyName"
@@ -21,7 +23,7 @@
             android:layout_marginRight="15dp"
             android:hint="@string/strSurveyName"
             android:inputType="textEmailAddress"
-            android:textColor="@color/colblack" />
+            android:textColor="@color/BackgroundtWhiteColor" />
     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -31,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textInputlay"
         android:layout_marginLeft="15dp"
-        android:background="#7a2423"
+        android:background="#3C4B50"
         android:drawableLeft="@drawable/icon_add_size"
         android:drawablePadding="10dip"
         android:padding="16dp"
@@ -42,7 +44,7 @@
         android:textColor="#ffffff"
         android:textSize="12sp" />
 
-<!-- Ustawic wysokośc -->
+    <!-- Ustawic wysokośc -->
     <ScrollView
         android:id="@+id/scrolViewQuestion"
         android:layout_width="match_parent"
@@ -59,16 +61,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/noQuest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/strNoQuestions"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:textSize="30sp"
-                android:layout_marginTop="20dp"></TextView>
+                android:text="@string/strNoQuestions"
+              android:textColor="@color/BackgroundtWhiteColor"
+                android:textSize="30sp"></TextView>
 
         </LinearLayout>
     </ScrollView>
@@ -87,7 +90,7 @@
             android:id="@+id/btnCreateSurvey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#991823"
+            android:background="#3C4B50"
             android:drawableRight="@drawable/icon_create_survey_size"
             android:paddingLeft="100dip"
             android:paddingRight="100dp"

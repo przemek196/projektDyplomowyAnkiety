@@ -4,7 +4,7 @@
         <item>Kalendarz ankiet</item>
         <item>Stwórz ankietę</item>
         <item>Wypełnij ankietę</item>
-        <item>Wygeneruj do CLS</item>
+        <item>Wygeneruj do pliku</item>
         <item>Zarządzaj powiadomieniami</item>
         <item></item>
         <item>Zmiana hasła</item>
@@ -19,6 +19,4 @@
         <item>@drawable/ic_notification</item>
         <item></item>
     </array>
-
-
 </resources>

@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:scrollbars="vertical">
+    android:background="#003333"
+    android:scrollbars="vertical"
+    android:padding="8dp">
 
     <TextView
        android:id="@+id/tVNoNotif"
@@ -23,8 +25,9 @@
         android:id="@+id/rVnotificationItemList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#003333"
         android:layout_above="@id/btnAddNot"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         ></androidx.recyclerview.widget.RecyclerView>
 
     <Button
@@ -32,8 +35,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#991823"
-        android:drawableRight="@drawable/ic_add"
+        android:background="#3C4B50"
         android:paddingLeft="50dip"
         android:paddingRight="50dp"
         android:singleLine="true"

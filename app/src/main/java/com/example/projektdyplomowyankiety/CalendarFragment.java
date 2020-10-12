@@ -3,14 +3,18 @@ package com.example.projektdyplomowyankiety;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -84,8 +88,7 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
         ConectionReciver.contectivityRecListener = listener;
     }
 
-    public boolean networkConnection()
-    {
+    public boolean networkConnection() {
         ConnectivityManager conectivymanager = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkinfo = conectivymanager.getActiveNetworkInfo();
         if (networkinfo == null) {
@@ -93,6 +96,7 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
         } else
             return true;
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -107,14 +111,12 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
         calendar = (CalendarView) view.findViewById(R.id.calendar);
         LinLayAnim = (LinearLayout) view.findViewById(R.id.linLayAnim);
         getActivity().setTitle("Kalendarz ankiet");
-        if(!networkConnection())
-        {
+
+        if (!networkConnection()) {
             isNetwork.setVisibility(View.VISIBLE);
             calendar.setVisibility(View.GONE);
             LinLayAnim.setVisibility(View.GONE);
-        }
-        else
-        {
+        } else {
             isNetwork.setVisibility(View.GONE);
             calendar.setVisibility(View.VISIBLE);
             LinLayAnim.setVisibility(View.VISIBLE);
@@ -235,8 +237,6 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
                                 }
                                 if (list.size() > 0) {
                                     setSurvey(list, fDate);
-                                } else {
-                                    Toast.makeText(getContext(), "Brak", Toast.LENGTH_SHORT).show();
                                 }
 
                             } else {
@@ -288,9 +288,10 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
         linLay.setOrientation(LinearLayout.VERTICAL);
         linLay.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         TextView sName = new TextView(getContext());
-
+        sName.setTextColor(Color.WHITE);
         LinearLayout.LayoutParams nameParams = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        textviewDate.setTextColor(Color.WHITE);
         textviewDate.setText(fDate);
         nameParams.setMargins(30, 10, 10, 0);
         sName.setTextSize(20);
@@ -316,6 +317,7 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
 
         for (CompleteSurvey cp : completeSurvey) {
             TextView question = new TextView(getContext());
+            question.setTextColor(Color.WHITE);
             question.setText(cp.getName());
             question.setTextSize(14);
             question.setTypeface(Typeface.SANS_SERIF, Typeface.ITALIC);
@@ -329,6 +331,7 @@ public class CalendarFragment extends Fragment implements IOnBackPressed {
                 }
 
                 TextView tvAns = new TextView(getContext());
+                tvAns.setTextColor(Color.WHITE);
                 tvAns.setText(ans);
                 linQuest.addView(tvAns, paramsAnsw);
             }

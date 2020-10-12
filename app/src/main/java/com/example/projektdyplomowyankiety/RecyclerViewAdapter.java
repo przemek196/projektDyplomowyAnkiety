@@ -81,7 +81,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.editSurvey.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //edit survey
                 editSurvey();
             }
 
@@ -101,7 +100,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
                         }
                         dialogEditManager = new DialogEditManager(mContext, questionCount, surveyNamesNames, false, get_list, position, position);
                         dialogEditManager.createDialog();
-                        //   createDialog(get_list, position, false, position);
                     }
                 });
             }
@@ -261,15 +259,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
 
         d.show();
-        ImageView imV = d.findViewById(R.id.imVback);
         Button agree = d.findViewById(R.id.btnAgree);
-
-        imV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.hide();
-            }
-        });
 
         agree.setOnClickListener(new View.OnClickListener() {
             @Override

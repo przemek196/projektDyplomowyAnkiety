@@ -178,7 +178,7 @@ public class AddQuestion extends AppCompatActivity {
                     FirebaseFirestore db = FirebaseFirestore.getInstance();
                     FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
                     db.collection("Users/" + currentFirebaseUser.getUid() + "/Created_Survey/" + surveyName
-                            + "/questions").document(backItem.getNameOfQuestion()).set(backItem);
+                            + "/questions").document(String.valueOf(survQuesCount)+"."+backItem.getNameOfQuestion()).set(backItem);
 
                     //dodac do liczby ankiet jedna
                     String path = "Users/" + currentFirebaseUser.getUid() + "/Created_Survey";

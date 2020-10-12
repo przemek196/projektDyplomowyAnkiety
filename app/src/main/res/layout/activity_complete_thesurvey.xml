@@ -4,20 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginTop="10dp"
-    android:orientation="vertical">
+    android:background="#026767"
+    android:orientation="vertical"
+    >
 
 
     <ScrollView
         android:id="@+id/scrolViewQuestion"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:layout_above="@+id/layA"
         android:layout_below="@+id/btnAddQuestion"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:fillViewport="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+
+        >
 
         <LinearLayout
             android:id="@+id/linearLayoutCompleteTheSurvey"
@@ -26,10 +30,10 @@
             android:orientation="vertical"></LinearLayout>
     </ScrollView>
 
-
     <LinearLayout
         android:id="@+id/layA"
         android:layout_width="match_parent"
+
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:gravity="center|bottom"
@@ -39,7 +43,7 @@
             android:id="@+id/btnConfirmCompleteSurvey"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#992fca"
+            android:background="#3C4B50"
             android:drawableRight="@drawable/icon_create_survey_size"
             android:paddingLeft="100dip"
             android:paddingRight="100dp"

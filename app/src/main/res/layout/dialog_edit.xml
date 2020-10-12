@@ -23,24 +23,12 @@
         android:orientation="horizontal"
         android:layout_margin="10dp">
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imVieBackDialog"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_marginLeft="15dp"
-            android:layout_gravity="center_vertical|center_horizontal"
-
-            android:layout_below="@+id/sccards"
-            android:src="@drawable/btn_back"></androidx.appcompat.widget.AppCompatImageView>
-
 
         <Button
             android:id="@+id/edSurvAddQues"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginRight="10dp"
-            android:background="#992fca"
+            android:background="#3C4B50"
             android:drawableRight="@drawable/icon_add_size"
             android:paddingLeft="40dip"
             android:paddingRight="40dip"

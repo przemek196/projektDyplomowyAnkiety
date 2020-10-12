@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent_layout"
     android:layout_width="match_parent"
-
+app:cardBackgroundColor="#c7c7c7"
     android:layout_height="wrap_content"
     app:cardCornerRadius="1dp">
 
@@ -70,7 +70,7 @@
                 android:id="@+id/imVDeleteSurvey"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:src="@drawable/ic_delete_survey_size"></ImageView>
+                android:src="@drawable/ic_delete_black_24dp"></ImageView>
         </LinearLayout>
 
 

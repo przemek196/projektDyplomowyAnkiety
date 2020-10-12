@@ -24,7 +24,7 @@
     <string name="strWarning">Ostrzeżenie.</string>
     <string name="strAgainFillSurv">"Ponowne wypełnienie ankiety spowoduje usunięcie poprzedniej z tego dnia. Czy chcesz ją wypełnić?"</string>
     <string name="surName">"Nazwa ankiety: "</string>
-    <string name="csvFileName">"Podaj nazwe pliku CLS"</string>
+    <string name="csvFileName">"Podaj nazwe pliku:"</string>
     <string name="csvHintFileName">"Nazwa pliku"</string>
     <string name="csvGenerate">"Wygeneruj"</string>
     <string name="strBack">"Cofnij"</string>

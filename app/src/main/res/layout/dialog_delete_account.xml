@@ -8,7 +8,7 @@
 
     <TextView
         android:id="@+id/textView"
-android:text="Usuwanie konta. Podaj hassło."
+android:text="Usuwanie konta. Podaj hasło."
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -32,26 +32,17 @@ android:text="Usuwanie konta. Podaj hassło."
 
     <Button
         android:id="@+id/buttonSubmit"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:background="#3C4B50"
+        android:textColor="#ffffff"
         android:text="Usuń"
         android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edt_comment" />
-
-    <Button
-        android:id="@+id/buttonCancel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        android:text="Cofnij"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edt_comment" />
 
 
